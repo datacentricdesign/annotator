@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h2>Informed consent</h2>
+<p>Some text</p>
+
+<p>text input prolific id?</p>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <label for="id_consent">I agree...</label>
+    <input type="checkbox" id="id_consent" name="consent" required /> <br>
+    <label for="id_prolific_id">Prolific ID:</label>
+    <input type="text" id="prolific_id" name="prolific_id" required />
+    <input type="submit" value="Agree and Start">
+</form>
+
+{% endblock %}

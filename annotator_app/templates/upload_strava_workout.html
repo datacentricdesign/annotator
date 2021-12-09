@@ -1,0 +1,12 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="id_screenshot_strava_workout">Select your Strava workout screenshot: </label><br>
+    <input id="id_screenshot_strava_workout" type="file" name="screenshot_strava_workout">
+    <input type="submit" value="Upload">
+</form>
+
+{% endblock %}

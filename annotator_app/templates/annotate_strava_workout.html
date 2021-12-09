@@ -1,0 +1,25 @@
+{% extends "base_generic.html" %}
+{% load static %}
+
+{% block content %}
+
+<p>Your Strava workout screenshot:</p>
+
+<img class="strava-screenshot" src="{% static 'img/test.png' %}" >
+
+<form action="" method="post">
+    {% csrf_token %}
+    <p>Information from the screenshot</p>
+    <label for="pace">Average pace:</label>
+    <input id="pace" name="pace" type="number" required /><br>
+    <label for="id_keywords">Keywords:</label>
+    <input id="id_keywords" name="keywords" type="text" required />
+    <hr>
+    <p>Annotations</p>
+    <label for="id_question1">Question 1: ...</label><br>
+    <textarea id="id_question1" name="question1" required></textarea>
+    <hr>
+    <input type="submit" value="Next">
+</form>
+
+{% endblock %}
