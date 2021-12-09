@@ -5,7 +5,7 @@
 
 <p>Your Strava workout screenshot:</p>
 
-<img class="strava-screenshot" src="{% static 'img/test.png' %}" >
+<img class="strava-screenshot" src="/annotator/download_strava_workout/{{ prolific_id }}" >
 
 <form action="" method="post">
     {% csrf_token %}
