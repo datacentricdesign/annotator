@@ -63,7 +63,7 @@ def annotate_strava_workout(request, prolific_id):
             calories = request.POST['calories']
             # Save annotation metrics to bucket
             values_metrics = (moving_time, distance, pace, time, calories)
-            bucket.save_workout_annotation_metrics(values, int(id_ts_map[prolific_id]))
+            bucket.save_workout_annotation_metrics(values_metrics, int(id_ts_map[prolific_id]))
 
             q1 = request.POST['question1']
             q2 = request.POST['question2']
@@ -73,7 +73,7 @@ def annotate_strava_workout(request, prolific_id):
             # Save annotations to bucket
             values_questions = (q1, q2, q3, q4, q5)
             bucket.save_workout_annotations(values_questions, int(id_ts_map[prolific_id]))
-            return HttpResponseRedirect('/annotator/upload_strave_overview/' + prolific_id)
+            return HttpResponseRedirect('/annotator/upload_strava_overview/' + prolific_id)
     else:
         form = AnnotateWorkoutForm()
 

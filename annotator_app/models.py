@@ -22,7 +22,7 @@ class Bucket:
                 "Strava Overview Annotations", "STRAVA_ANNOTATIONS")
 
         self.workout_annotation_metrics_property = self.thing.find_or_create_property(
-                "Strava Workout Annotation Metrics", "STRAVA_ANNOTATION_METRICS")
+                "Strava Workout Annotation Metrics", "STRAVA_WORKOUT_ANNOTATION_METRICS")
 
     def upload_workout_screenshot(self, ts, file_name):
         values = (100,100)

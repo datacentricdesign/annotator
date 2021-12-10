@@ -5,21 +5,24 @@
 
 <p>Your Strava overview screenshot:</p>
 
-<img class="strava-screenshot" src="/annotator/download_strava_overview/{{ prolific_id }}" >
+<div style="text-align: center;">
+    <img style="width: 70%;" src="/annotator/download_strava_overview/{{ prolific_id }}" >
+</div>
+
 
 <form action="" method="post">
     {% csrf_token %}
     <p>Annotations</p>
     <label for="id_question1">Question 1: ...</label><br>
-    <textarea id="id_question1" name="question1" required></textarea>
+    <textarea id="id_question1" name="question1" required></textarea><br>
     <label for="id_question2">Question 2: ...</label><br>
-    <textarea id="id_question2" name="question2" required></textarea>
+    <textarea id="id_question2" name="question2" required></textarea><br>
     <label for="id_question3">Question 3: ...</label><br>
-    <textarea id="id_question3" name="question3" required></textarea>
+    <textarea id="id_question3" name="question3" required></textarea><br>
     <label for="id_question4">Question 4: ...</label><br>
-    <textarea id="id_question4" name="question4" required></textarea>
+    <textarea id="id_question4" name="question4" required></textarea><br>
     <label for="id_question5">Question 5: ...</label><br>
-    <textarea id="id_question5" name="question5" required></textarea>
+    <textarea id="id_question5" name="question5" required></textarea><br>
     <hr>
     <input type="submit" value="Next">
 </form>
