@@ -3,24 +3,12 @@
 
 {% block content %}
 
-<p>Your Strava workout screenshot:</p>
+<p>Your Strava overview screenshot:</p>
 
-<img class="strava-screenshot" src="/annotator/download_strava_workout/{{ prolific_id }}" >
+<img class="strava-screenshot" src="/annotator/download_strava_overview/{{ prolific_id }}" >
 
 <form action="" method="post">
     {% csrf_token %}
-    <p>Information from the screenshot</p>
-    <label for="moving_time">Moving Time:</label>
-    <input id="moving_time" name="moving_time" type="number" required /><br>
-    <label for="distance">Distance:</label>
-    <input id="distance" name="distance" type="number" required /><br>
-    <label for="pace">Pace:</label>
-    <input id="pace" name="pace" type="number" required /><br>
-    <label for="time">Time:</label>
-    <input id="time" name="time" type="number" required /><br>
-    <label for="calories">Calories:</label>
-    <input id="calories" name="calories" type="number" required /><br>
-    <hr>
     <p>Annotations</p>
     <label for="id_question1">Question 1: ...</label><br>
     <textarea id="id_question1" name="question1" required></textarea>
