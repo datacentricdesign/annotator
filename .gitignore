@@ -131,3 +131,5 @@ dmypy.json
 *.pem
 data
 logs
+
+.DS_Store
