@@ -14,7 +14,8 @@
     {% csrf_token %}
     <p>Information from the screenshot</p>
     <label for="moving_time">Moving Time:</label>
-    <input id="moving_time" name="moving_time" type="number" required /><br>
+    <input id="moving_time_min" name="moving_time_min" type="number" value="0" min="0" required /> minutes
+    <input id="moving_time_sec" name="moving_time_sec" type="number" value="0" min="0" max="59" required /> seconds<br>
     <label for="distance">Distance:</label>
     <input id="distance" name="distance" type="number" required /><br>
     <label for="pace">Pace:</label>

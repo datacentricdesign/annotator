@@ -15,22 +15,27 @@ bucket = Bucket()
 
 def index(request):
     """View function for home page of site."""
-
-    context = {}
+    context = {
+        "prolific_id": request.GET['PROLIFIC_ID']
+    }
     return render(request, 'index.html', context=context)
 
 def informed_consent(request):
+    prolific_id = request.GET['PROLIFIC_ID']
     if request.method == 'POST':
         form = ConsentForm(request.POST)
         if form.is_valid():
-            prolific_id = request.POST['prolific_id']
-            ts = str(int(time.time()) * 1000)
+            ts = int(time.time()) * 1000
             id_ts_map[prolific_id] = ts
             bucket.save_prolific_id(prolific_id, ts)
-            return HttpResponseRedirect('/annotator/upload_strava_workout/' + request.POST['prolific_id'])
+            return HttpResponseRedirect('/annotator/upload_strava_workout/' + prolific_id)
     else:
         form = ConsentForm()
-    return render(request, 'informed_consent.html', {'form': form})
+    context = {
+        "prolific_id": prolific_id,
+        "form": form
+    }
+    return render(request, 'informed_consent.html', context=context)
 
 def upload_strava_workout(request, prolific_id):
     if request.method == 'POST':
@@ -56,11 +61,11 @@ def annotate_strava_workout(request, prolific_id):
     if request.method == 'POST':
         form = AnnotateWorkoutForm(request.POST)
         if form.is_valid():
-            moving_time = request.POST['moving_time']
-            distance = request.POST['distance']
-            pace = request.POST['pace']
-            time = request.POST['time']
-            calories = request.POST['calories']
+            moving_time = int(request.POST['moving_time_min'])*60 + int(request.POST['moving_time_sec'])
+            distance = int(request.POST['distance'])
+            pace = int(request.POST['pace'])
+            time = int(request.POST['time'])
+            calories = int(request.POST['calories'])
             # Save annotation metrics to bucket
             values_metrics = (moving_time, distance, pace, time, calories)
             bucket.save_workout_annotation_metrics(values_metrics, int(id_ts_map[prolific_id]))

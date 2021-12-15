@@ -49,4 +49,4 @@ class Bucket:
     
     def save_prolific_id(self, prolific_id, ts):
         values = (prolific_id,)
-        self.workout_annotation_metrics_property.update_values(values=values, time_ms=ts)
+        self.prolific_id_property.update_values(values=values, time_ms=ts)

@@ -2,16 +2,35 @@
 
 {% block content %}
 <h2>Informed consent</h2>
-<p>Some text</p>
+<p>You are being invited to participate in a PhD study to explore the potential of crowdsourcing techniques for Strava running data interpretation. 
 
-<p>text input prolific id?</p>
+<h3>  Agreement to Participate </h3>
+<p>Your participation is completely voluntary, and you can withdraw at any time.</p>
+<p>To take this survey, you must be:</p>
+<p> •	At least 18 years old<p>
+<p>  •	Strava user who has 5 run records in recent 2 months</p>
+    
+<h3>What will you do?</h3>
+<p>You will be invited to participate in a longitudinal study and do the following tasks:</p>
+<p> •	The first study: upload 1) screenshots of the recent 
+    two-month running route map(figure1) and 2) running frequency 
+    visualization (figure 2) showing at least 5 runs in the recent 
+    2 months.</p>
+<p>•	The second study: upload the screenshots same as the first 
+    study. Then, you will be asked to annotate your running 
+    experiences by reflecting on visualisations and answering
+    prepared questions. </p>
+<p>If you meet the requirements of the first study, you will 
+   receive our invitation for the second study and be paid until
+   completing all parts of the study. If not, you will be paid 
+   immediately after finishing the first study. Each study will
+   be approved within 21 days. The total task will take you 
+   approximately 20 minutes to complete (5mins+15mins). </p>
 
 <form action="" method="post">
     {% csrf_token %}
-    <label for="id_consent">I agree...</label>
+    <label for="id_consent">I agree</label>
     <input type="checkbox" id="id_consent" name="consent" required /> <br>
-    <label for="id_prolific_id">Prolific ID:</label>
-    <input type="text" id="prolific_id" name="prolific_id" required />
     <input type="submit" value="Agree and Start">
 </form>
 
