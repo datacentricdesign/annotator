@@ -1,6 +1,6 @@
 FROM python:3.8.5-alpine
 
-RUN apk update && apk add gcc
+RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev libffi-dev
 
 RUN pip install --upgrade pip
 
