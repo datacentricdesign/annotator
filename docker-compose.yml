@@ -1,16 +1,23 @@
-services:
-  envoy:
-    image: envoyproxy/envoy-alpine:v1.19-latest
-    container_name: envoy
-    ports:
-      - 80:8080
-      - 443:8443
-    volumes:
-      - ./config.yaml:/etc/envoy/envoy.yaml
-      - ./certs:/etc/certs
-  storytelling:
-    build: .
-    container_name: annotator
-    environment:
-      - port=8000
+version: '3.7'
 
+services:
+  django_gunicorn:
+    volumes:
+      - static:/static
+    env_file:
+      - .env
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+  nginx:
+    build: ./nginx
+    volumes:
+      - static:/static
+    ports:
+      - "80:80"
+    depends_on:
+      - django_gunicorn
+
+volumes:
+  static:
