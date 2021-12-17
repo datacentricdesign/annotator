@@ -13,13 +13,15 @@ id_ts_map = {
 
 def index(request):
     """View function for home page of site."""
-    context = {
-        "prolific_id": request.GET['PROLIFIC_ID']
-    }
+    context = {}
+    if "prolific_id" in request.GET:
+        context["prolific_id"] = request.GET['PROLIFIC_ID']
     return render(request, 'index.html', context=context)
 
 def informed_consent(request):
-    prolific_id = request.GET['PROLIFIC_ID']
+    prolific_id = None
+    if "prolific_id" in request.GET:
+        prolific_id = request.GET['PROLIFIC_ID']
     if request.method == 'POST':
         form = ConsentForm(request.POST)
         if form.is_valid():
