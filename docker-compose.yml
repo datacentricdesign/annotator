@@ -10,16 +10,16 @@ services:
     build:
       context: .
     ports:
-      - "8000:8000"
-  nginx:
-    container_name: nginx
-    build: ./nginx
-    volumes:
-      - static:/static
-    ports:
       - "80:80"
-    depends_on:
-      - annotator
+  # nginx:
+  #   container_name: nginx
+  #   build: ./nginx
+  #   volumes:
+  #     - static:/static
+  #   ports:
+  #     - "80:80"
+  #   depends_on:
+  #     - annotator
 
 volumes:
   static:
