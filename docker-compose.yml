@@ -15,6 +15,7 @@ services:
     container_name: nginx
     build: ./nginx
     volumes:
+      - certs:/certs
       - static:/static
     ports:
       - "80:80"
