@@ -20,7 +20,7 @@ def index(request):
 
 def informed_consent(request):
     prolific_id = None
-    if "prolific_id" in request.GET:
+    if "PROLIFIC_ID" in request.GET:
         prolific_id = request.GET['PROLIFIC_ID']
     if request.method == 'POST':
         form = ConsentForm(request.POST)
