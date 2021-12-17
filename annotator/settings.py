@@ -40,9 +40,9 @@ INSTALLED_APPS = [
     'annotator_app.apps.AnnotatorAppConfig'
 ]
 
-CSRF_TRUSTED_ORIGINS = ['http://storytelling.io.tudelft.nl']
+CSRF_TRUSTED_ORIGINS = ['https://storytelling.io.tudelft.nl']
 CSRF_COOKIE_DOMAIN = ['storytelling.io.tudelft.nl', '127.0.0.1']
-# CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
