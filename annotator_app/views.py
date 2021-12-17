@@ -11,8 +11,6 @@ id_ts_map = {
 
 }
 
-bucket = Bucket()
-
 def index(request):
     """View function for home page of site."""
     context = {
@@ -28,7 +26,7 @@ def informed_consent(request):
         if form.is_valid():
             ts = int(time.time()) * 1000
             id_ts_map[prolific_id] = ts
-            bucket.save_prolific_id(prolific_id, ts)
+            Bucket.getInstance().save_prolific_id(prolific_id, ts)
             return HttpResponseRedirect('/annotator/upload_strava_workout/' + prolific_id)
     else:
         form = ConsentForm()
@@ -54,7 +52,7 @@ def handle_workout_file(f, id):
         for chunk in f.chunks():
             destination.write(chunk)
     # Send file to Bucket
-    bucket.upload_workout_screenshot(int(id_ts_map[id]), file_name)
+    Bucket.getInstance().upload_workout_screenshot(int(id_ts_map[id]), file_name)
     # Then we delete the local file
     os.remove(file_name)
 
@@ -69,7 +67,7 @@ def annotate_strava_workout(request, prolific_id):
             calories = int(request.POST['calories'])
             # Save annotation metrics to bucket
             values_metrics = (moving_time, distance, pace, time, calories)
-            bucket.save_workout_annotation_metrics(values_metrics, int(id_ts_map[prolific_id]))
+            Bucket.getInstance().save_workout_annotation_metrics(values_metrics, int(id_ts_map[prolific_id]))
 
             q1 = request.POST['question1']
             q2 = request.POST['question2']
@@ -78,7 +76,7 @@ def annotate_strava_workout(request, prolific_id):
             q5 = request.POST['question5']
             # Save annotations to bucket
             values_questions = (q1, q2, q3, q4, q5)
-            bucket.save_workout_annotations(values_questions, int(id_ts_map[prolific_id]))
+            Bucket.getInstance().save_workout_annotations(values_questions, int(id_ts_map[prolific_id]))
             return HttpResponseRedirect('/annotator/upload_strava_overview/' + prolific_id)
     else:
         form = AnnotateWorkoutForm()
@@ -88,7 +86,7 @@ def annotate_strava_workout(request, prolific_id):
 def download_strava_workout(request, prolific_id):
     if (id_ts_map[prolific_id] is not None):
         # Download image from bucket
-        file_content = bucket.download_workout_screenshot(int(id_ts_map[prolific_id]))
+        file_content = Bucket.getInstance().download_workout_screenshot(int(id_ts_map[prolific_id]))
         return HttpResponse(file_content, content_type='image/png')
 
 def upload_strava_overview(request, prolific_id):
@@ -107,7 +105,7 @@ def handle_overview_file(f, id):
         for chunk in f.chunks():
             destination.write(chunk)
     # Send file to Bucket
-    bucket.upload_overview_screenshot(int(id_ts_map[id]), file_name)
+    Bucket.getInstance().upload_overview_screenshot(int(id_ts_map[id]), file_name)
     # Then we delete the local file
     os.remove(file_name)
 
@@ -122,7 +120,7 @@ def annotate_strava_overview(request, prolific_id):
             q5 = request.POST['question5']
             # Save annotations to bucket
             values_questions = (q1, q2, q3, q4, q5)
-            bucket.save_overview_annotations(values_questions, int(id_ts_map[prolific_id]))
+            Bucket.getInstance().save_overview_annotations(values_questions, int(id_ts_map[prolific_id]))
             return HttpResponseRedirect('/annotator/thanks')
     else:
         form = AnnotateOverviewForm()
@@ -132,7 +130,7 @@ def annotate_strava_overview(request, prolific_id):
 def download_strava_overview(request, prolific_id):
     if (id_ts_map[prolific_id] is not None):
         # Download image from bucket
-        file_content = bucket.download_overview_screenshot(int(id_ts_map[prolific_id]))
+        file_content = Bucket.getInstance().download_overview_screenshot(int(id_ts_map[prolific_id]))
         return HttpResponse(file_content, content_type='image/png')
 
 def thanks(request):

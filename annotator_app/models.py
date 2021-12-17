@@ -3,6 +3,14 @@ from dcd.bucket.thing import Thing
 
 class Bucket:
 
+    __instance = None
+    @staticmethod 
+    def getInstance():
+      """ Static access method. """
+      if Bucket.__instance == None:
+         Bucket.__instance = Bucket()
+      return Bucket.__instance
+
     def __init__(self):
         self.thing = Thing()
 
