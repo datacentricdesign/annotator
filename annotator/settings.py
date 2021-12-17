@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '4gox3a=sfct&z#ht7h9&$s#3!oey2++x8q-^#t1%uuavi&w)oh'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'annotator','storytelling.io.tudelft.nl']
 
