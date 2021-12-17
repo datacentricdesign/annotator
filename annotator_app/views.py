@@ -15,7 +15,6 @@ def index(request):
     """View function for home page of site."""
     context = {
         "prolific_id": request.GET['PROLIFIC_ID']
-           
     }
     return render(request, 'index.html', context=context)
 
