@@ -15,7 +15,7 @@ class AnnotateWorkoutForm(forms.Form):
     moving_time_sec = forms.NumberInput()
     distance = forms.NumberInput()
     pace = forms.NumberInput()
-    time = forms.NumberInput()
+    time1 = forms.NumberInput()
     calories = forms.NumberInput()
     
     question1 = forms.Textarea()

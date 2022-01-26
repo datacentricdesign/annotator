@@ -11,4 +11,5 @@ urlpatterns = [
     path('download_strava_overview/<prolific_id>', views.download_strava_overview, name='download_strava_overview'),
     path('annotate_strava_overview/<prolific_id>', views.annotate_strava_overview, name='annotate_strava_overview'),
     path('thanks/', views.thanks, name='thanks'),
+    path('leave/', views.leave, name='leave'),
 ]

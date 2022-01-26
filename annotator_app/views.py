@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from annotator_app.forms import AnnotateWorkoutForm, AnnotateOverviewForm, ConsentForm, UploadWorkoutForm, UploadOverviewForm
 import time
+from datetime import datetime
 import os
 
 from annotator_app.models import Bucket
@@ -16,7 +17,9 @@ def index(request):
     context = {}
     if "PROLIFIC_ID" in request.GET:
         context["prolific_id"] = request.GET['PROLIFIC_ID']
+        print(context)
     return render(request, 'index.html', context=context)
+    
 
 def informed_consent(request):
     prolific_id = None
@@ -61,13 +64,27 @@ def annotate_strava_workout(request, prolific_id):
     if request.method == 'POST':
         form = AnnotateWorkoutForm(request.POST)
         if form.is_valid():
-            moving_time = int(request.POST['moving_time_min'])*60 + int(request.POST['moving_time_sec'])
-            distance = int(request.POST['distance'])
-            pace = int(request.POST['pace'])
-            time = int(request.POST['time'])
-            calories = int(request.POST['calories'])
+            calories = 0
+            moving_time = int(request.POST['moving_time_minute'])*60 + int(request.POST['moving_time_second'])
+            distance = float(request.POST['distance'])
+            pace = int(request.POST['pace_minute'])*60 + int(request.POST['pace_second'])
+            
+            datestr=request.POST['date']
+            time_hour=int(request.POST['run_time_hour'])
+            time_minute=int(request.POST['run_time_minute'])
+            timestr= datestr +'-'+ str(time_hour)+'-'+str(time_minute)
+            t = datetime.strptime(timestr,'%Y-%m-%d-%H-%M')
+            time1 = time.mktime(t.timetuple())
+            
+            print(time1)
+           
+            
+            
+            
+            
+
             # Save annotation metrics to bucket
-            values_metrics = (moving_time, distance, pace, time, calories)
+            values_metrics = (moving_time, distance, pace, time1, calories)
             Bucket.getInstance().save_workout_annotation_metrics(values_metrics, int(id_ts_map[prolific_id]))
 
             q1 = request.POST['question1']
@@ -137,3 +154,7 @@ def download_strava_overview(request, prolific_id):
 def thanks(request):
     context = {}
     return render(request, 'thanks.html', context=context)
+
+def leave(request):
+    context = {}
+    return render(request, 'leave.html', context=context)
