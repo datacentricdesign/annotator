@@ -1,10 +1,13 @@
 from django.http.response import HttpResponse
+from django.template.context_processors import csrf
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from annotator_app.forms import AnnotateWorkoutForm, AnnotateOverviewForm, ConsentForm, UploadWorkoutForm, UploadOverviewForm
 import time
 from datetime import datetime
 import os
+
 
 from annotator_app.models import Bucket
 
@@ -20,7 +23,7 @@ def index(request):
         print(context)
     return render(request, 'index.html', context=context)
     
-
+@csrf_exempt
 def informed_consent(request):
     prolific_id = None
     if "PROLIFIC_ID" in request.GET:
@@ -40,6 +43,7 @@ def informed_consent(request):
     }
     return render(request, 'informed_consent.html', context=context)
 
+@csrf_exempt
 def upload_strava_workout(request, prolific_id):
     if request.method == 'POST':
         form = UploadWorkoutForm(request.POST, request.FILES)
@@ -50,6 +54,7 @@ def upload_strava_workout(request, prolific_id):
         form = UploadWorkoutForm()
     return render(request, 'upload_strava_workout.html', {'form': form})
 
+@csrf_exempt
 def handle_workout_file(f, id):
     file_name = f'./data/{id}-{id_ts_map[id]}-workout.png'
     with open(file_name, 'wb+') as destination:
@@ -60,6 +65,7 @@ def handle_workout_file(f, id):
     # Then we delete the local file
     os.remove(file_name)
 
+@csrf_exempt
 def annotate_strava_workout(request, prolific_id):
     if request.method == 'POST':
         form = AnnotateWorkoutForm(request.POST)
@@ -75,12 +81,6 @@ def annotate_strava_workout(request, prolific_id):
             timestr= datestr +'-'+ str(time_hour)+'-'+str(time_minute)
             t = datetime.strptime(timestr,'%Y-%m-%d-%H-%M')
             time1 = time.mktime(t.timetuple())
-            
-            print(time1)
-           
-            
-            
-            
             
 
             # Save annotation metrics to bucket
@@ -101,12 +101,14 @@ def annotate_strava_workout(request, prolific_id):
 
     return render(request, 'annotate_strava_workout.html', {'form': form, 'prolific_id': prolific_id})
 
+@csrf_exempt
 def download_strava_workout(request, prolific_id):
     if (id_ts_map[prolific_id] is not None):
         # Download image from bucket
         file_content = Bucket.getInstance().download_workout_screenshot(int(id_ts_map[prolific_id]))
         return HttpResponse(file_content, content_type='image/png')
 
+@csrf_exempt
 def upload_strava_overview(request, prolific_id):
     if request.method == 'POST':
         form = UploadOverviewForm(request.POST, request.FILES)
@@ -117,6 +119,7 @@ def upload_strava_overview(request, prolific_id):
         form = UploadOverviewForm()
     return render(request, 'upload_strava_overview.html', {'form': form})
 
+@csrf_exempt
 def handle_overview_file(f, id):
     file_name = f'./data/{id}-{id_ts_map[id]}-overview.png'
     with open(file_name, 'wb+') as destination:
@@ -127,6 +130,7 @@ def handle_overview_file(f, id):
     # Then we delete the local file
     os.remove(file_name)
 
+@csrf_exempt
 def annotate_strava_overview(request, prolific_id):
     if request.method == 'POST':
         form = AnnotateOverviewForm(request.POST)
@@ -145,16 +149,19 @@ def annotate_strava_overview(request, prolific_id):
 
     return render(request, 'annotate_strava_overview.html', {'form': form, 'prolific_id': prolific_id})
 
+@csrf_exempt
 def download_strava_overview(request, prolific_id):
     if (id_ts_map[prolific_id] is not None):
         # Download image from bucket
         file_content = Bucket.getInstance().download_overview_screenshot(int(id_ts_map[prolific_id]))
         return HttpResponse(file_content, content_type='image/png')
 
+@csrf_exempt
 def thanks(request):
     context = {}
     return render(request, 'thanks.html', context=context)
 
+@csrf_exempt
 def leave(request):
     context = {}
     return render(request, 'leave.html', context=context)

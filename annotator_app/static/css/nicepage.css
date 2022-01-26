@@ -1525,7 +1525,7 @@ a {
 }
 .u-form-vertical.u-form-spacing-10 {
   margin-left: -10px;
-  width: calc(100% +  10px);
+  width: calc(100% +  80px);
 }
 .u-form-vertical.u-form-spacing-10 .u-form-group {
   margin-bottom: 10px;
@@ -1619,7 +1619,7 @@ a {
 }
 .u-form-vertical .u-label-left label {
   flex: none;
-  width: 100px;
+  width: 140px;
 }
 .u-form-vertical .u-label-left label + input,
 .u-form-vertical .u-label-left label + textarea {
