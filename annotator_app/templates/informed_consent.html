@@ -45,32 +45,29 @@
                       <p class="u-text u-text-body-alt-color u-text-2" spellcheck="false">Are you the one we are looking for?</p>
                     </div>
                   </div>
-                  <p class="u-align-justify u-text u-text-3" spellcheck="false">You are being invited to participate in scientific research to understand Strava running exepriences.&nbsp;Your participation is completely voluntary, and you can withdraw at any time.
-To take this survey, we expect you are:<br>1. at least 18 years old<br>2. <span style="font-weight: 700;">Strava user who has 5 running records in recent 2 months</span>
+                  <p class="u-align-justify u-text u-text-3" spellcheck="false">You are being invited to a scientific research around Strava running exepriences.&nbsp;Your participation is completely voluntary, and you can withdraw at any time.
+To participate in this survey, we expect you are:<br>1. at least 18 years old<br>2. <span style="font-weight: 700;">Strava user who has 5 running records in recent 2 months</span>
                   </p>
                   <div class="u-container-style u-group u-palette-2-base u-shape-rectangle u-group-2">
                     <div class="u-container-layout u-valign-top u-container-layout-3">
                       <p class="u-text u-text-4" spellcheck="false">What task will you do?</p>
                     </div>
                   </div>
-                  <p class="u-align-justify u-text u-text-5" spellcheck="false">You will be invited to participate in <span style="font-weight: 700;">a longitudinal study</span> and do the following tasks:
+                  <p class="u-align-justify u-text u-text-5" spellcheck="false">You will be invited to do the following tasks:
                   </p>
                   <ul class="u-align-justify u-text u-text-6" spellcheck="false">
-                    <li>The first study: upload screenshots of the <span style="font-weight: 700;">recent two-month</span> running route
-map and training calendar showing at least 3 records in that month.
+                    <li>Upload screenshots of the <span style="font-weight: 700;">recent two-month</span> running route
+map and training calendar(showing at least 3 records). 
                     </li>
-                    <li>The second study: upload the screenshots as the first study. Then, you
-will be asked to annotate your running experiences in text format by reflecting on
-your screenshots and answering prepared questions.​</li>
+                    <li>Then, you will be asked to annotate your running experiences in text format by reflecting on
+the uploaded screenshots and answer prepared questions.​</li>
                   </ul>
                   <img class="u-image u-image-default u-image-1" src="{% static 'img/informed_consent_route_map.png' %}" alt="" data-image-width="1188" data-image-height="864">
                   <img class="u-image u-image-default u-image-2" src="{% static 'img/informed_consent_training_calendar.png' %}" alt="" data-image-width="1774" data-image-height="1080">
                   <p class="u-align-center u-text u-text-7" spellcheck="false">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Running route map&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ​&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;​&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Training calendar<br>
                   </p>
-                  <p class="u-align-justify u-text u-text-8" spellcheck="false">If you meet the requirements of the first study, <span style="font-weight: 700;">you will receive our invitation for the
-second study and get full commission until you complete two parts of the study.</span> If you complete the first part of study but not meet the requrimenets, you will only get part of the commission. Each study will be approved within
-21 days. The total task will take you approximately 20 minutes to complete.
-(5mins+15mins).<br>
+                  <p class="u-align-justify u-text u-text-8" spellcheck="false"> <span style="font-weight: 700;"> We cannot pay you if you do not meet those requriments even if you complete the whole tasks. </span> This study will be approved within
+21 days. The total task will take you approximately 15 minutes maximum to complete.<br>
                   </p>
                   <div class="u-container-style u-group u-palette-2-base u-shape-rectangle u-group-3">
                     <div class="u-container-layout u-container-layout-4">
@@ -116,10 +113,10 @@ and data will only be accessed by our research group members.<br>
                            {% csrf_token %}
                       <div class="u-form-checkbox u-form-group u-label-top u-form-group-1">
                         <input type="checkbox" id="id_consent" name="consent"  required="required">
-                        <label for="id-consent" class="u-label">I agree with the informed consent</label>
+                        <label for="id-consent" class="u-label">I meet the requirements</label>
                       </div>
                       <div class="u-align-left u-form-group u-form-submit">
-                        <input type="submit" value="Go to do tasks!" class="u-btn u-btn-submit u-button-style u-palette-2-base u-btn-1">
+                        <input type="submit" value="I agree, go to do tasks!" class="u-btn u-btn-submit u-button-style u-palette-2-base u-btn-1">
                       </div>
                     </form>
                   </div>
