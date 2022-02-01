@@ -1204,7 +1204,7 @@ a {
   align-items: flex-end;
 }
 .u-form-vertical.u-form-spacing-50 {
-  margin-left: -50px;
+  margin-left: -500px;
   width: calc(100% +  50px);
 }
 .u-form-vertical.u-form-spacing-50 .u-form-group {
@@ -1612,7 +1612,7 @@ a {
   padding-left: 0px;
 }
 .u-form-vertical .u-form-group {
-  width: 100%;
+  width: 200%;
 }
 .u-form-vertical .u-label-left {
   display: flex;
