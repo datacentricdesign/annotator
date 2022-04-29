@@ -16,8 +16,6 @@ class Annotate_sleep_data_Form(forms.Form):
     question5 = forms.Textarea()
 
 class Disclosure_evaluation_Form(forms.Form):
-    question1 = forms.Textarea()
-    question2 = forms.Textarea()
-    question3 = forms.Textarea()
-    question4 = forms.Textarea()
-    question5 = forms.Textarea()
+    trust_level = forms.NumberInput()
+    intimacy_level = forms.NumberInput()
+    entertainment_level = forms.NumberInput()

@@ -15,7 +15,7 @@ id_ts_map = {
 
 }
 
-BASE_URL = '/data_provider/'
+BASE_URL = '/'
 
 
 def index(request):
@@ -37,6 +37,7 @@ def informed_consent(request):
             ts = int(time.time()) * 1000
             id_ts_map[prolific_id] = ts
             Bucket.getInstance().save_prolific_id(prolific_id, ts)
+            Bucket.getInstance().save_study_id(ts)
             return HttpResponseRedirect('/upload_sleep_data/' + prolific_id)
     else:
         form = ConsentForm()
@@ -52,6 +53,7 @@ def upload_sleep_data(request, prolific_id):
         form = Upload_sleep_data_Form(request.POST, request.FILES)
         if form.is_valid():
             handle_sleep_file(request.FILES['screenshot_sleep_data'], prolific_id)
+            print("handled file")
             return HttpResponseRedirect('/annotate_sleep_data/' + prolific_id)
     else:
         form = Upload_sleep_data_Form()
@@ -59,7 +61,7 @@ def upload_sleep_data(request, prolific_id):
 
 @csrf_exempt
 def handle_sleep_file(f, id):
-    file_name = f'./data/{id}-{id_ts_map[id]}-sleep.png'
+    file_name = f'./data/{id_ts_map[id]}.png'
     with open(file_name, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
@@ -86,10 +88,9 @@ def annotate_sleep_data(request, prolific_id):
             q3 = request.POST['question3']
             q4 = request.POST['question4']
             q5 = request.POST['question5']
-            q6 = request.POST['question6']
 
             # Save annotations to bucket, need to add instances
-            values_questions = (q1, q2, q3, q4, q5,q6)
+            values_questions = (q1, q2, q3, q4, q5, "", "", "", "", "")
             Bucket.getInstance().save_sleep_data_annotation(values_questions, int(id_ts_map[prolific_id]))
             return HttpResponseRedirect('/disclosure_evaluation/' + prolific_id)
     else:
@@ -103,16 +104,15 @@ def disclosure_evaluation(request, prolific_id):
         form = Disclosure_evaluation_Form(request.POST)
         # need to change it to questions
         if form.is_valid():
-            q1 = request.POST['question1']
-            q2 = request.POST['question2']
-            q3 = request.POST['question3']
-            q4 = request.POST['question4']
-            q5 = request.POST['question5']
+            trust = request.POST['trust_level']
+            intimacy = request.POST['intimacy_level']
+            entertainment = request.POST['entertainment_level']
 
             # Save evaluation result to bucket
-            values_questions = (q1, q2, q3, q4, q5)
-            Bucket.getInstance().save_disclosure_evaluation_result(values_questions, int(id_ts_map[prolific_id]))
-            return HttpResponseRedirect('/data_provider/thanks')
+            Bucket.getInstance().save_trust_level((trust,), int(id_ts_map[prolific_id]))
+            Bucket.getInstance().save_intimacy_level((intimacy,), int(id_ts_map[prolific_id]))
+            Bucket.getInstance().save_entertainment_level((entertainment,), int(id_ts_map[prolific_id]))
+            return HttpResponseRedirect('/thanks')
     else:
         form = Disclosure_evaluation_Form()
 

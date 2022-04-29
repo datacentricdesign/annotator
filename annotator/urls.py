@@ -20,10 +20,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('annotator/', include('annotator_app.urls')),
-    path('data_provider/', include('data_provider.urls')),
-    path('non_data_provider/', include('non_data_provider.urls')),
+    # path('admin/', admin.site.urls),
+    # path('annotator/', include('annotator_app.urls')),
+    path('', include('data_provider.urls')),
     
-    path('', RedirectView.as_view(url='data_provider/', permanent=True)) 
+    # path('', RedirectView.as_view(url='/', permanent=True)) 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
