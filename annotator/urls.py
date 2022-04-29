@@ -22,5 +22,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('annotator/', include('annotator_app.urls')),
-    path('', RedirectView.as_view(url='annotator/', permanent=True)) 
+    path('data_provider/', include('data_provider.urls')),
+    path('non_data_provider/', include('non_data_provider.urls')),
+    
+    path('', RedirectView.as_view(url='data_provider/', permanent=True)) 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

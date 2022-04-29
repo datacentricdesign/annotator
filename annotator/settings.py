@@ -42,7 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'annotator_app.apps.AnnotatorAppConfig'
+    'annotator_app.apps.AnnotatorAppConfig',
+    'non_data_provider',
+    'data_provider'
+
 ]
 
 CSRF_TRUSTED_ORIGINS = ['https://storytelling.io.tudelft.nl']
@@ -64,7 +67,9 @@ ROOT_URLCONF = 'annotator.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
