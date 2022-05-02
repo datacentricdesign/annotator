@@ -1,0 +1,31 @@
+{% extends 'base_generic.html' %} 
+{% load static %}
+
+{% block mainheader %}Welcome to our Apple sleep data interpretation survey{% endblock mainheader %}
+
+{% block content %}
+
+<h3>Are you the one we are looking for?</h4>
+
+<h4>To complete this survey, we expect :</h4>
+<ul>
+  <li>
+    You are an active Strava user
+  </li>
+  <li>
+    You have <span style="font-weight: 400;">5 running records</span> in the recent 2
+  </li>
+</ul>
+<p>Please login in your&nbsp;
+  <a href="https://www.strava.com/dashboard" class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-2-base u-btn-1" target="_blank">
+    Strava account
+  </a>
+  &nbsp;to see if you me​et those requirements.​&nbsp;Notice that you will<span style="font-weight: 700;">not be able to complete this survey&nbsp;and get commission</span> if you do not meet those requirement.&nbsp;
+</p>
+<img src="{% static 'img/Intro-2.jpg' %}" alt="" style="width:400px">
+<img src="{% static 'img/strava-icon.png' %}" alt="" data-image-width="300" data-image-height="300">
+<p class="u-text u-text-6" spellcheck="false">
+  If you are the person we are looking for, please click the following button!
+</p>
+<a href= "informed_consent/?PROLIFIC_ID={{prolific_id}}" class="u-active-grey-50 u-align-left u-border-none u-btn u-btn-rectangle u-button-style u-custom-font u-font-montserrat u-hover-grey-50 u-palette-2-base u-radius-0 u-btn-2">I meet the requirements!</a>
+{% endblock content %}

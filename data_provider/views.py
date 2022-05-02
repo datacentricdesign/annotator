@@ -9,7 +9,7 @@ from data_provider.forms import ConsentForm, Upload_sleep_data_Form, Annotate_sl
 import time
 from datetime import datetime
 import os
-from data_provider.models import Bucket
+from data_provider.models import STUDY_ID, Bucket
 
 id_ts_map = {
 
@@ -24,7 +24,11 @@ def index(request):
     if "PROLIFIC_ID" in request.GET:
         context["prolific_id"] = request.GET['PROLIFIC_ID']
         print(context)
-    return render(request, 'index_data_provider.html', context=context)
+    # Show template according to the type of participants
+    if (STUDY_ID.endswidth("NON_DATA_PROVIDER")):
+        return render(request, 'index_non_data_provider.html', context=context)
+    else:
+        return render(request, 'index_data_provider.html', context=context)
   
 @csrf_exempt
 def informed_consent(request):
@@ -38,14 +42,23 @@ def informed_consent(request):
             id_ts_map[prolific_id] = ts
             Bucket.getInstance().save_prolific_id(prolific_id, ts)
             Bucket.getInstance().save_study_id(ts)
-            return HttpResponseRedirect('/upload_sleep_data/' + prolific_id)
+            # Show template according to the type of participants
+            if (STUDY_ID.endswidth("NON_DATA_PROVIDER")):
+                return HttpResponseRedirect('/annotate_sleep_data/' + prolific_id)
+            else:
+                return HttpResponseRedirect('/upload_sleep_data/' + prolific_id)
+
     else:
         form = ConsentForm()
     context = {
         "prolific_id": prolific_id,
         "form": form
     }
-    return render(request, 'informed_consent_data_provider.html', context=context)
+    # Show template according to the type of participants
+    if (STUDY_ID.endswidth("NON_DATA_PROVIDER")):
+        return render(request, 'informed_consent_non_data_provider.html', context=context)
+    else:
+        return render(request, 'informed_consent_data_provider.html', context=context)
 
 @csrf_exempt
 def upload_sleep_data(request, prolific_id):
@@ -53,13 +66,11 @@ def upload_sleep_data(request, prolific_id):
         form = Upload_sleep_data_Form(request.POST, request.FILES)
         if form.is_valid():
             handle_sleep_file(request.FILES['screenshot_sleep_data'], prolific_id)
-            print("handled file")
             return HttpResponseRedirect('/annotate_sleep_data/' + prolific_id)
     else:
         form = Upload_sleep_data_Form()
     return render(request,'upload_sleep_data.html', {'form': form})
 
-@csrf_exempt
 def handle_sleep_file(f, id):
     file_name = f'./data/{id_ts_map[id]}.png'
     with open(file_name, 'wb+') as destination:
@@ -74,8 +85,14 @@ def handle_sleep_file(f, id):
 @csrf_exempt
 def download_sleep_data(request, prolific_id):
     if (id_ts_map[prolific_id] is not None):
+        if (STUDY_ID.endswith("NON_DATA_PROVIDER")):
+            # If participant is a non-data provider, download the previously uploaded picture
+            timestamp = Bucket.getInstance().get_next_image_timestamp()
+        else:
+            # If participant is a data provider, download the previously uploaded picture
+            timestamp = int(id_ts_map[prolific_id])
         # Download image from bucket
-        file_content = Bucket.getInstance().download_sleep_screenshot(int(id_ts_map[prolific_id]))
+        file_content = Bucket.getInstance().download_sleep_screenshot(timestamp)
         return HttpResponse(file_content, content_type='image/png')
 
 @csrf_exempt
