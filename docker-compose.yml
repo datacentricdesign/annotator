@@ -9,6 +9,8 @@ services:
       context: .
     ports:
       - "8000:8000"
+    volumes:
+      - ./data:/app/data
   nginx:
     container_name: nginx
     build: ./nginx
