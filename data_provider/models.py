@@ -71,6 +71,7 @@ class Bucket:
         
         
     def save_intimacy_level(self, values, ts):
+        print(values)
         self.intimacy_level_property.update_values(values=values, time_ms=ts)
 
     def save_entertainment_level(self, values, ts):
@@ -82,18 +83,13 @@ class Bucket:
             return [int(i) for i in file.read().splitlines()]
 
     def load_timestamps_to_annotate(self):
-        print("xxxxppppp")
         to_annotate = self.load_timestamps(TO_ANNOTATE_FILE)
         done = self.load_timestamps(DONE_FILE)
-        print("xxxxxxxxooooooooo")
-        print( to_annotate)
-        print(done)
         # remove all elements from done in to_annotate
-        return filter(lambda i: i not in done, to_annotate)
+        return list(filter(lambda i: i not in done, to_annotate))
 
     def get_next_image_timestamp(self):
         timestamp = self.timestamps_to_annotate.pop(0)
-        print("xxxx")
         print(timestamp)
         with open(DONE_FILE, 'a') as file:
             file.write("\n" + str(timestamp))

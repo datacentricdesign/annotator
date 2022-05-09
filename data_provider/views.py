@@ -93,19 +93,12 @@ def handle_sleep_file(f, id):
 @csrf_exempt
 def download_sleep_data(request, prolific_id):
     if (id_ts_map[prolific_id] is not None):
-        
-        if (STUDY_ID.endswith("NON_DATA_PROVIDER")):
-            
+        if (STUDY_ID.endswith("NON_DATA_PROVIDER") or STUDY_ID.endswith("NON_DATA_PROVIDER_TRACKER")):      
             # If participant is a non-data provider, download the previously uploaded picture
             timestamp = Bucket.getInstance().get_next_image_timestamp()
             print(timestamp)
             print("ddddddddddddddd")
-            
-        if (STUDY_ID.endswith("NON_DATA_PROVIDER_TRACKER")):
-            # If participant is a non-data provider_tracker, download the previously uploaded picture
-            timestamp = Bucket.getInstance().get_next_image_timestamp()
-            
-            
+                        
         else:
             # If participant is a data provider, download the previously uploaded picture
             timestamp = int(id_ts_map[prolific_id])
@@ -158,8 +151,8 @@ def disclosure_evaluation(request, prolific_id):
             entertainment = int(request.POST['entertainment_level'])
             
             # Save evaluation result to bucket
-    
-            Bucket.getInstance().save_trust_level((trust,), int(id_ts_map[prolific_id]))
+            trust_values = (trust,)
+            Bucket.getInstance().save_trust_level(trust_values, int(id_ts_map[prolific_id]))
             Bucket.getInstance().save_intimacy_level((intimacy,), int(id_ts_map[prolific_id]))
             Bucket.getInstance().save_entertainment_level((entertainment,), int(id_ts_map[prolific_id]))
             return HttpResponseRedirect('/thanks')
