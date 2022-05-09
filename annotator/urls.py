@@ -24,5 +24,5 @@ urlpatterns = [
     # path('annotator/', include('annotator_app.urls')),
     path('', include('data_provider.urls')),
     
-    # path('', RedirectView.as_view(url='/', permanent=True)) 
+    #path('', RedirectView.as_view(url='/', permanent=True)) 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

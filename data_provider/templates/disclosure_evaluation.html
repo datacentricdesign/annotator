@@ -1,87 +1,65 @@
+{% extends 'base_generic.html' %} 
 {% load static %}
+
+
+{% block title %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<head>
+  <p class="p0"> Welcome to our apple sleep data annotation task</p>
+</head>
+{% endblock %}
+
+
 {% block content %}
-<!DOCTYPE html>
-<html style="font-size: 16px;">
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <meta name="keywords" content="We partner with the world&amp;apos;s leading universities">
-    <meta name="description" content="">
-    <meta name="page_type" content="np-template-header-footer-from-plugin">
-    <title>annotate training calendar</title>
-    <link rel="stylesheet" href="{% static 'css/nicepage.css' %}" media="screen">
-<link rel="stylesheet" href="{% static 'css/annotate-training-calendar.css' %}" media="screen">
-    <script class="u-script" type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}" defer=""></script>
-    <script class="u-script" type="text/javascript" src="{% static 'js/nicepage.js' %}" defer=""></script>
-    <meta name="generator" content="Nicepage 4.3.1, nicepage.com">
-    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
-    
-    
-    <script type="application/ld+json">{
-		"@context": "http://schema.org",
-		"@type": "Organization",
-		"name": ""
-}</script>
-    <meta name="theme-color" content="#478ac9">
-    <meta property="og:title" content="annotate training calendar">
-    <meta property="og:type" content="website">
-  </head>
-  <body class="u-body">
-    <section class="skrollable u-align-center u-clearfix u-section-1" id="carousel_23bf">
-      <div class="u-clearfix u-sheet u-sheet-1">
-        <h2 class="u-text u-text-1" spellcheck="false">Please evaluate your self-disclosure level</h2>
-        <div class="u-clearfix u-expanded-width u-layout-wrap u-layout-wrap-1">
-          <div class="u-layout">
-            <div class="u-layout-row">
-              <div class="u-container-style u-layout-cell u-size-60 u-white u-layout-cell-1">
-                <div class="u-container-layout u-container-layout-1">
-                  
-                 
-                 
-                  <div class="u-container-style u-group u-palette-2-base u-shape-rectangle u-group-1">
-                    <div class="u-container-layout u-valign-middle u-container-layout-2">
-                      <p class="u-text u-text-body-alt-color u-text-3" spellcheck="false">Annotate your traning calendar</p>
-                    </div>
-                  </div>
-                  <p class="u-text u-text-4" spellcheck="false">Please read your uploaded training calendar carefully. Then, try to reflect on your past training experiences, and answer the questions below.</p>
-                  <p class="u-text u-text-4" spellcheck="false">                   </p>
-                  <div class="u-expanded-width u-form u-form-1">
+
+<div class=title_box>
+  <span style="font-size: 24px;font-family: Arial, Helvetica, sans-serif;color: white;"> Slef-disclosure evaluation</span>
+</div>
                     <!--form action="" method="post"  class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" style="padding: 10px;"-->
                     <form action="" method="post"  style="padding: 10px;">
                         {% csrf_token %}
                       
-                      <div class="u-form-group u-form-message">
-                        <label for="id_trust_level" class="u-label">Trust Level</label>
-                        <input type="number" id="id_trust_level" name="trust_level" />
-                      </div>
-                      <div class="u-form-group u-form-message">
-                        <label for="id_intimacy_level" class="u-label">Intimacy Level</label>
-                        <input type="number" id="id_intimacy_level" name="intimacy_level" />
-                      </div>
-                      <div class="u-form-group u-form-message">
-                        <label for="id_entertainment_level" class="u-label">Entertainement Level</label>
-                        <input type="number" id="id_entertainment_level" name="entertainment_level" />
-                      </div>
-                      <div class="u-align-center u-form-group u-form-submit">
-                        <input type="submit" value="submit!" class="u-border-none u-btn u-btn-submit u-button-style u-palette-2-base u-btn-1">
-                      </div>
+                      
+                        <label for="id_trust_level" class="p2"> My trust level in this task is</label>
+                        <input type="number" id="id_trust_level" required min="1" max="7" step="1" name="trust_level" style="width: 50px; height: 18px;" />
+                        <p class="p2"> 
+                          1. xxx <br>
+                          2. xxxx<br>
+                          3. xxx <br>
+                          4. xxxx<br>
+                          5. xxx <br>
+                          6. xxxx<br>
+                          7. xxx <br>
+                        </p>
+                      
+                        <label for="id_intimacy_level" class="u-label">My intimacy Level in this task is </label>
+                        <input type="number" id="id_intimacy_level" requried min="1" max="7" step="1" name="intimacy_level" style="width: 50px; height: 18px;"/>
+                        <p class="p2"> 
+                          1. xxx <br>
+                          2. xxxx<br>
+                          3. xxx <br>
+                          4. xxxx<br>
+                          5. xxx <br>
+                          6. xxxx<br>
+                          7. xxx <br>
+                        </p>
 
-                     
+                        <label for="id_entertainment_level" class="u-label">My entertainement in this task is</label>
+                        <input type="number" id="id_entertainment_level" required min="1" max="7" step="1" name="entertainment_level" style="width: 50px; height: 18px;" />
+                        <p class="p2"> 
+                          1. xxx <br>
+                          2. xxxx<br>
+                          3. xxx <br>
+                          4. xxxx<br>
+                          5. xxx <br>
+                          6. xxxx<br>
+                          7. xxx <br>
+                        </p>
+
+                      
+                        <input type="submit" value="submit!" style="font-size: 18px;"class="button">
+                      
                     </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    
-  </body>
-</html>
-
-
 
 
 

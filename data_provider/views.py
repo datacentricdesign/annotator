@@ -25,8 +25,11 @@ def index(request):
         context["prolific_id"] = request.GET['PROLIFIC_ID']
         print(context)
     # Show template according to the type of participants
-    if (STUDY_ID.endswidth("NON_DATA_PROVIDER")):
+    print(STUDY_ID)
+    if (STUDY_ID.endswith("NON_DATA_PROVIDER")):
         return render(request, 'index_non_data_provider.html', context=context)
+    if (STUDY_ID.endswith("DATA_PROVIDER_TRACKER")):
+        return render(request, 'index_non_data_provider_tracker.html', context=context)
     else:
         return render(request, 'index_data_provider.html', context=context)
   
@@ -43,7 +46,9 @@ def informed_consent(request):
             Bucket.getInstance().save_prolific_id(prolific_id, ts)
             Bucket.getInstance().save_study_id(ts)
             # Show template according to the type of participants
-            if (STUDY_ID.endswidth("NON_DATA_PROVIDER")):
+            if (STUDY_ID.endswith("NON_DATA_PROVIDER")):
+                return HttpResponseRedirect('/annotate_sleep_data/' + prolific_id)
+            if (STUDY_ID.endswith("NON_DATA_PROVIDER_TRACKER")):
                 return HttpResponseRedirect('/annotate_sleep_data/' + prolific_id)
             else:
                 return HttpResponseRedirect('/upload_sleep_data/' + prolific_id)
@@ -55,8 +60,11 @@ def informed_consent(request):
         "form": form
     }
     # Show template according to the type of participants
-    if (STUDY_ID.endswidth("NON_DATA_PROVIDER")):
+    if (STUDY_ID.endswith("NON_DATA_PROVIDER")):
         return render(request, 'informed_consent_non_data_provider.html', context=context)
+    if (STUDY_ID.endswith("NON_DATA_PROVIDER_TRACKER")):
+        return render(request, 'informed_consent_non_data_provider_tracker.html', context=context)
+            
     else:
         return render(request, 'informed_consent_data_provider.html', context=context)
 
@@ -85,15 +93,28 @@ def handle_sleep_file(f, id):
 @csrf_exempt
 def download_sleep_data(request, prolific_id):
     if (id_ts_map[prolific_id] is not None):
+        
         if (STUDY_ID.endswith("NON_DATA_PROVIDER")):
+            
             # If participant is a non-data provider, download the previously uploaded picture
             timestamp = Bucket.getInstance().get_next_image_timestamp()
+            print(timestamp)
+            print("ddddddddddddddd")
+            
+        if (STUDY_ID.endswith("NON_DATA_PROVIDER_TRACKER")):
+            # If participant is a non-data provider_tracker, download the previously uploaded picture
+            timestamp = Bucket.getInstance().get_next_image_timestamp()
+            
+            
         else:
             # If participant is a data provider, download the previously uploaded picture
             timestamp = int(id_ts_map[prolific_id])
         # Download image from bucket
         file_content = Bucket.getInstance().download_sleep_screenshot(timestamp)
         return HttpResponse(file_content, content_type='image/png')
+
+        
+        
 
 @csrf_exempt
 def annotate_sleep_data(request, prolific_id):
@@ -105,27 +126,39 @@ def annotate_sleep_data(request, prolific_id):
             q3 = request.POST['question3']
             q4 = request.POST['question4']
             q5 = request.POST['question5']
+            q6 = request.POST['question6']
+            q7 = request.POST['question7']
 
             # Save annotations to bucket, need to add instances
-            values_questions = (q1, q2, q3, q4, q5, "", "", "", "", "")
+            values_questions = (q1, q2, q3, q4, q5, q6, q7, "", "", "")
             Bucket.getInstance().save_sleep_data_annotation(values_questions, int(id_ts_map[prolific_id]))
             return HttpResponseRedirect('/disclosure_evaluation/' + prolific_id)
     else:
         form = Annotate_sleep_data_Form()
 
-    return render(request, 'annotate_sleep_data_data_provider.html', {'form': form, 'prolific_id': prolific_id})
+    # Change templates according to STUDY_ID
 
+    
+    if (STUDY_ID.endswith("NON_DATA_PROVIDER")):
+        return render(request, 'annotate_sleep_data_non_data_provider.html', {'form': form, 'prolific_id': prolific_id})           
+    if (STUDY_ID.endswith("NON_DATA_PROVIDER_TRACKER")):
+        return render(request, 'annotate_sleep_data_non_data_provider.html', {'form': form, 'prolific_id': prolific_id})  
+    else:
+        return render(request, 'annotate_sleep_data_data_provider.html', {'form': form, 'prolific_id': prolific_id})  
+
+        
 @csrf_exempt
 def disclosure_evaluation(request, prolific_id):
     if request.method == 'POST':
         form = Disclosure_evaluation_Form(request.POST)
         # need to change it to questions
         if form.is_valid():
-            trust = request.POST['trust_level']
-            intimacy = request.POST['intimacy_level']
-            entertainment = request.POST['entertainment_level']
-
+            trust = int(request.POST['trust_level'])
+            intimacy = int(request.POST['intimacy_level'])
+            entertainment = int(request.POST['entertainment_level'])
+            
             # Save evaluation result to bucket
+    
             Bucket.getInstance().save_trust_level((trust,), int(id_ts_map[prolific_id]))
             Bucket.getInstance().save_intimacy_level((intimacy,), int(id_ts_map[prolific_id]))
             Bucket.getInstance().save_entertainment_level((entertainment,), int(id_ts_map[prolific_id]))

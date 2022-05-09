@@ -19,8 +19,7 @@ def index(request):
     """View function for home page of site."""
     context = {}
     if "PROLIFIC_ID" in request.GET:
-        context["prolific_id"] = request.GET['PROLIFIC_ID']
-        print(context)
+        context["prolific_id"] = request.GET['PROLIFIC_ID']   
     return render(request, 'index.html', context=context)
     
 @csrf_exempt

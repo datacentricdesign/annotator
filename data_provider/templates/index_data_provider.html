@@ -1,31 +1,45 @@
 {% extends 'base_generic.html' %} 
 {% load static %}
 
-{% block mainheader %}Welcome to our Apple sleep data interpretation survey{% endblock mainheader %}
+
+{% block title %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<head>
+  <p class="p0"> Welcome to our apple sleep data annotation task</p>
+</head>
+{% endblock %}
+
+
 
 {% block content %}
 
-<h3>Are you the one we are looking for?</h4>
+  <div class=title_box>
+    <span style="font-size: 24px;font-family: Arial, Helvetica, sans-serif;color: white;">Are you the one we are looking for?</span>
+  </div>
 
-<h4>To complete this survey, we expect :</h4>
-<ul>
+<p class="p2">To complete this survey, we expect :</p>
+  <ul>
   <li>
-    You are an active Strava user
+    <p class="p2"> You are an active apple health user who collect sleep data <span style="font-weight: 700;">of the recent one week.</span></p>
   </li>
   <li>
-    You have <span style="font-weight: 400;">5 running records</span> in the recent 2
+    <p class="p2">You use <span style="font-weight: 700;">wearable devices</span>(e.g., apple watch, garmin watch) to collect sleep data. </p>
   </li>
-</ul>
-<p>Please login in your&nbsp;
-  <a href="https://www.strava.com/dashboard" class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-2-base u-btn-1" target="_blank">
-    Strava account
-  </a>
-  &nbsp;to see if you me​et those requirements.​&nbsp;Notice that you will<span style="font-weight: 700;">not be able to complete this survey&nbsp;and get commission</span> if you do not meet those requirement.&nbsp;
+  </ul>
 </p>
-<img src="{% static 'img/Intro-2.jpg' %}" alt="" style="width:400px">
-<img src="{% static 'img/strava-icon.png' %}" alt="" data-image-width="300" data-image-height="300">
-<p class="u-text u-text-6" spellcheck="false">
+  <p class="p2">Please open your apple health app and check your sleep data carefully.​ Notice that you will<span style="font-weight: 700;"> not be able to complete this survey and get commission</span> if you do not meet those requirements.
+  </p>
+<img src="{% static 'img/apple_health.png' %}" alt="" style="width:200px;margin:20px;">
+<img src="{% static 'img/find_sleep_data.png' %}" alt="" style="width:200px;margin:20px;">
+<img src="{% static 'img/sleep_data_example.jpg' %}" alt="" style="width:200px;margin:20px;">
+
+
+<p class="p2">
   If you are the person we are looking for, please click the following button!
 </p>
-<a href= "informed_consent/?PROLIFIC_ID={{prolific_id}}" class="u-active-grey-50 u-align-left u-border-none u-btn u-btn-rectangle u-button-style u-custom-font u-font-montserrat u-hover-grey-50 u-palette-2-base u-radius-0 u-btn-2">I meet the requirements!</a>
+<a href= "informed_consent/?PROLIFIC_ID={{prolific_id}}" class="button"> <span style="font-size: 18px;">I meet the requirements!</span></a>
+
+<p class="p0">
+  
+</p>
 {% endblock content %}

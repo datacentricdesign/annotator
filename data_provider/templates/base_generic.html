@@ -1,25 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 
-<head>
-    {% block title %}<title>Annotator</title>{% endblock title%}
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<head>    
+    {% block title %}<title>Annotator</title>{% endblock %}
+    
+    <!-- Add additional CSS in static file -->
+    {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 
 
+
+
+
 <body>
-    <div class="container-fluid">
-        <header class="row">
-            <div class="col-sm-12">
-                {% block mainheader %}{% endblock mainheader %}
-            </div>
-        </header>
-        <main style="color:blue;width:900px">
-            {% block content %}{% endblock content %}
-        </main>
-    </div>
+        <div class="content">
+            {% block content %} {% endblock content %}
+        </div>
 </body>
 
 </html>
