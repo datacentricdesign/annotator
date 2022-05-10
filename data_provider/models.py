@@ -44,12 +44,19 @@ class Bucket:
 
         self.entertainment_level_property = self.thing.find_or_create_property(
                  "Entertainment Level", "ENTERTAINMENT_LEVEL")
+
+        self.ndp_timestamp_property = self.thing.find_or_create_property(
+                 "NDP Timestamp", "STATE")
         
         self.timestamps_to_annotate = self.load_timestamps_to_annotate()
 
     def save_prolific_id(self, prolific_id, ts):
         values = (prolific_id,)
         self.prolific_id_property.update_values(values=values, time_ms=ts)
+
+    def save_ndp_timestamp(self, ndp_timestamp, ts):
+        values = (ndp_timestamp,)
+        self.ndp_timestamp_property.update_values(values=values, time_ms=ts)
 
     def save_study_id(self, ts):
         values = (STUDY_ID,)
@@ -69,7 +76,6 @@ class Bucket:
     def save_trust_level(self, values, ts):
         self.trust_level_property.update_values(values=values, time_ms=ts)
         
-        
     def save_intimacy_level(self, values, ts):
         print(values)
         self.intimacy_level_property.update_values(values=values, time_ms=ts)
@@ -80,7 +86,13 @@ class Bucket:
     def load_timestamps(self, file_name):
         with open(file_name, 'r') as file:
             # read the file, split into lines (timestamps) and convert into int
-            return [int(i) for i in file.read().splitlines()]
+            ts_array = []
+            for line in file.read().splitlines():
+                try:
+                    ts_array.append(int(line))
+                except:
+                    print("not a timestamp!")
+            return ts_array
 
     def load_timestamps_to_annotate(self):
         to_annotate = self.load_timestamps(TO_ANNOTATE_FILE)

@@ -96,9 +96,7 @@ def download_sleep_data(request, prolific_id):
         if (STUDY_ID.endswith("NON_DATA_PROVIDER") or STUDY_ID.endswith("NON_DATA_PROVIDER_TRACKER")):      
             # If participant is a non-data provider, download the previously uploaded picture
             timestamp = Bucket.getInstance().get_next_image_timestamp()
-            print(timestamp)
-            print("ddddddddddddddd")
-                        
+            Bucket.getInstance().save_ndp_timestamp(timestamp, int(id_ts_map[prolific_id]))    
         else:
             # If participant is a data provider, download the previously uploaded picture
             timestamp = int(id_ts_map[prolific_id])
