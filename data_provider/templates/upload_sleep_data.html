@@ -1,35 +1,45 @@
-{% extends 'base_generic.html' %} 
+{% extends 'base_generic.html' %}
 {% load static %}
 
 {% block title %}
 <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
 <head>
-  <p class="p0"> Please upload a screenshot of your apple sleep data </p>
+  <p class="p0">Please upload a screenshot of your apple sleep data</p>
 </head>
 {% endblock %}
 
 
 {% block content %}
 <div class=title_box>
-  <span style="font-size: 24px;font-family: Arial, Helvetica, sans-serif;color: white;">1. Capure a screenshot of sleep data</span>
+  <span style="font-size: 24px;font-family: Arial, Helvetica, sans-serif;color: white;">
+    1. Capure a screenshot of your sleep data
+  </span>
 </div>
-  <p class="p2"> Please follow the following instruction to capture a screenshot of your apple sleep data.</p> 
-   <img src="{% static 'img/apple_health.png' %}" alt="" style="width:200px;margin:20px;">
-   <p style = "font-size: 16px;font-family: Arial, Helvetica, sans-serif"> Step1: Find and open the health app on your iphone </p>
-   <img src="{% static 'img/instruction.png' %}" alt="" style= "width:1100px; ">
+<p class="p2">
+  Please follow the following instruction to capture a screenshot of your Apple sleep data.
+</p>
+<img src="{% static 'img/apple_health.png' %}" alt="" style="width:200px;margin:20px;">
+<p style="font-size: 16px;font-family: Arial, Helvetica, sans-serif">
+  Step 1: Find and open the Health app on your iPhone
+</p>
+<img src="{% static 'img/instruction.png' %}" alt="" style="width:1100px; ">
 
 
 <div class=title_box>
-    <span style="font-size: 24px;font-family: Arial, Helvetica, sans-serif;color: white;">2. Upload the screenshot</span>
+  <span style="font-size: 24px;font-family: Arial, Helvetica, sans-serif;color: white;">
+    2. Upload the screenshot
+  </span>
 </div>
-  <p class="p2"> Please transform the screenshot from your phone to your computer, then upload it.</p>
-    <form action="" method="post" enctype="multipart/form-data" class= "button2">
-    {% csrf_token %}
-    <input id="id_screenshot_strava_workout" style="font-size: 18px;" type="file" name="screenshot_sleep_data" >
-    <input type="submit" class= "button" style= "font-size: 18px;" value="Upload">
+<p class="p2">
+  Please transform the screenshot from your phone to your computer, then upload it.
+</p>
+<form action="" method="post" enctype="multipart/form-data" class="button2">
+  {% csrf_token %}
+  <input id="id_screenshot_strava_workout" style="font-size: 18px;" type="file" name="screenshot_sleep_data">
+  <input type="submit" class="button" style="font-size: 18px;" value="Upload">
 </form>
 
-<p class="p0">   </p>
-<p class="p0">   </p>
+<p class="p0"> </p>
+<p class="p0"> </p>
 {% endblock content %}
-
