@@ -3,22 +3,21 @@
 {% load static %}
 
 
-<head>    
+<head>
     {% block title %}<title>Annotator</title>{% endblock %}
-    
     <!-- Add additional CSS in static file -->
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 
 
-
-
-
 <body>
-        <div class="content">
-            {% block content %} {% endblock content %}
-        </div>
+    <header>
+        {% block header %} {% endblock header %}
+    </header>
+    <main>
+        {% block content %} {% endblock content %}
+    </main>
 </body>
 
 </html>

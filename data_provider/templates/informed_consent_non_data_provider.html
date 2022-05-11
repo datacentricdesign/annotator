@@ -1,91 +1,84 @@
-{% extends 'base_generic.html' %} 
+{% extends 'base_generic.html' %}
 {% load static %}
 
-{% block title %}
+{% block header %}
 <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-<head>
-  <p class="p0">Informed consent</p>
-</head>
+  <h1>
+    Informed consent
+  </h1>
 {% endblock %}
 
 {% block content %}
 
-<div class=title_box>
-  <span style="font-size: 24px;font-family: Arial, Helvetica, sans-serif;color: white;">
-    Are you the one we are looking for?
-  </span>
-</div>
+<h2>
+  Are you the one we are looking for?
+</h2>
 
-<p class="p2">
-  By taking on this task, you will participate in a scientific study in the context of sleep behaviour led by the TU Delft researcher Di Yan, under the supervision of Dr Jacky Bourgeois and Prof. Gerd Kortuem, members of the 'research team'. Your participation is voluntary, and you can withdraw at any time. To complete this task, we expect:
+<p>
+  By taking on this task, you will participate in a scientific study in the context of sleep behaviour led by the TU
+  Delft researcher Di Yan, under the supervision of Dr Jacky Bourgeois and Prof. Gerd Kortuem, members of the
+  'research team'. Your participation is voluntary, and you can withdraw at any time. To complete this task, we
+  expect:
 </p>
-  <ul>
-  <li>
-      <p class="p2">You don't collect and check your sleep data.</p>
-  </li>
-  <li>
-    <p class="p2">You are over 18 years old.</p>
-  </li>
-  <li>
-    <p class="p2">You are an English native speaker</p>
-  </li>
-  </ul>
-  <p class="p2">
-    Notice that <b>you won't be able to complete this task and get commission</b> if you do not meet these requirements.
-  </p>
-
-
-<div class=title_box>
-  <span style="font-size: 24px;font-family: Arial, Helvetica, sans-serif;color: white;">
-    What task will you perform?
-  </span>
-</div>
-<p class="p2">You will be invited to complete the following tasks:</p>
 <ul>
   <li>
-    <p class="p2">Have a look at the sleep data from someone in your age range;</p>
+    You don't collect and check your sleep data;
   </li>
   <li>
-    <p class="p2">Reflect on their sleep based on the data in text format;</p>
+    You are over 18 years old;
   </li>
   <li>
-    <p class="p2">Elaborate on your sleep experiences in text format.</p>
+    You are an English native speaker.
   </li>
 </ul>
-<p class="p2">The whole task will take you approximately <b>20 minutes</b> to complete.</p>
+<p>
+  Notice that <b>you won't be able to complete this task and get commission</b> if you do not meet these requirements.
+</p>
 
-<div class=title_box>
-  <span style="font-size: 24px;font-family: Arial, Helvetica, sans-serif;color: white;">
-    How do we protect your data?</span>
-</div>
 
-<p class="p2">We protect your data in the following ways:</p>
+<h2>
+  What task will you perform?
+</h2>
+
+<p>You will be invited to complete the following tasks:</p>
 <ul>
   <li>
-    <p class="p2">
-      We designed this task to collect anonymous information using your Prolific ID as unique reference.</p>
+    Have a look at the sleep data from someone in your age range;
   </li>
   <li>
-    <p class="p2">
-      At the reception of your data, we will scan through it to remove any remaining identifyable information (e.g.
-      removing part of your textual contribution).
-    </p>
+    Reflect on their sleep based on the data in text format;
   </li>
   <li>
-    <p class="p2">
-      We will store all data on a password-protected, encrypted server hosted by the TU Delft.
-    </p>
+    Elaborate on your sleep experiences in text format.
+  </li>
+</ul>
+
+<p>The whole task will take you approximately <b>20 minutes</b> to complete.</p>
+
+<h2>
+  How do we protect your data?
+</h2>
+
+<p>We protect your data in the following ways:</p>
+<ul>
+  <li>
+    We designed this task to collect anonymous information using your Prolific ID as unique reference.
+  </li>
+  <li>
+    At the reception of your data, we will scan through it to remove any remaining identifyable information (e.g.
+    removing part of your textual contribution).
+  </li>
+  <li>
+    We will store all data on a password-protected, encrypted server hosted by the TU Delft.
   </li>
 </ul>
 
 <form action="" method="post">
-    {% csrf_token %}
-    <label for="id_consent"><span style="font-size: 18px;font-family:Arial, Helvetica, sans-serif;">I agree</span></label>
-    <input type="checkbox" id="id_consent" name="consent" required /> <br>
-    <input type="submit" class= "button" style= "font-size: 18px;" value="Agree and Start">
+  {% csrf_token %}
+  <label for="id_consent"><span style="font-size: 18px;font-family:Arial, Helvetica, sans-serif;">I
+      agree</span></label>
+  <input type="checkbox" id="id_consent" name="consent" required /> <br>
+  <input type="submit" class="button" style="font-size: 18px;" value="Agree and Start">
 </form>
-<p class="p0">   </p>
 
 {% endblock content %}
-
-

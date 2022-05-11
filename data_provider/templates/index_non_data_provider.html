@@ -1,45 +1,43 @@
-{% extends 'base_generic.html' %} 
+{% extends 'base_generic.html' %}
 {% load static %}
 
 
-{% block title %}
+{% block header %}
 <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-<head>
-  <p class="p0">Welcome to the Apple sleep data annotation task!</p>
-</head>
+  <h1>Welcome to the Apple sleep data annotation task!</h1>
 {% endblock %}
 
 
 
 {% block content %}
 
-  <div class=title_box>
-    <span style="font-size: 24px;font-family: Arial, Helvetica, sans-serif;color: white;">Are you the one we are looking for?</span>
-  </div>
+<h2>
+  Are you the one we are looking for?</span>
+</h2>
 
-<p class="p2">To complete this task, we expect:</p>
-  <ul>
+<p>To complete this task, we expect:</p>
+<ul>
   <li>
-    <p class="p2">You do not collect and check your sleep data;</p>
+    <p>You do not collect and check your sleep data;</p>
   </li>
   <li>
-    <p class="p2"> You are over 18 years old;</p>
+    <p> You are over 18 years old;</p>
   </li>
   <li>
-    <p class="p2"> You are English native speaker.</p>
+    <p> You are English native speaker.</p>
   </li>
 
-  </ul>
+</ul>
 </p>
-  <p class="p2">​Notice that <b>you won't be able to complete this survey and get commission</b> if you do not meet those requirements.
-  </p>
+<p>​Notice that <b>you won't be able to complete this survey and get commission</b> if you do not meet those
+  requirements.
+</p>
 
-<p class="p2">
+<p>
   If you are the person we are looking for, please click on the following button to proceed!
 </p>
-<a href= "informed_consent/?PROLIFIC_ID={{prolific_id}}" class="button"> <span style="font-size: 18px;">I meet the requirements!</span></a>
+<a href="informed_consent/?PROLIFIC_ID={{prolific_id}}" class="button">
+  I meet the requirements!
+</a>
 
-<p class="p0">
-  
-</p>
 {% endblock content %}

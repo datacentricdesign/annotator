@@ -1,102 +1,96 @@
 {% extends 'base_generic.html' %}
 {% load static %}
 
-{% block title %}
+{% block header %}
 <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-
-<head>
-  <p class="p0">Informed consent</p>
-</head>
+  <h1>Informed consent</h1>
 {% endblock %}
 
 {% block content %}
 
-<div class=title_box>
-  <span style="font-size: 24px;font-family: Arial, Helvetica, sans-serif;color: white;">
+<main>
+  <h2>
     Are you the one we are looking for?
-  </span>
-</div>
-
-<p class="p2">
-  By taking on this task, you will participate in a scientific study in the context of sleep behaviour led by the TU
-  Delft researcher Di Yan, under the supervision of Dr Jacky Bourgeois and Prof. Gerd Kortuem, members of the 'research team'. Your participation is
-  voluntary, and you can withdraw at any time. To complete this task, we expect:
-</p>
-<ul>
-  <li>
-    <p class="p2">You are an active Apple health user who collected sleep data <b>in the past weeks</b></p>
-  </li>
-  <li>
-    <p class="p2">
-      You use <b>a wearable device</b>(e.g., Apple watch, Garmin watch) to collect sleep data, which help you get an
-      <b>green barchart in different shades</b> according to your sleep pattern.
-    </p>
-  </li>
-</ul>
-<p class="p2">Notice that <b>you won't be able to complete this survey and get commission</b> if you do not meet these requirements. </p>
-
-<img src="{% static 'img/apple_health.png' %}" alt="" style="width:250px;margin:20px;">
-<img src="{% static 'img/find_sleep_data.png' %}" alt="" style="width:250px;margin:20px;">
-<img src="{% static 'img/sleep_data_example.jpg' %}" alt="" style="width:250px;margin:20px;">
-
-
-<div class=title_box>
-  <span style="font-size: 24px;font-family: Arial, Helvetica, sans-serif;color: white;">
-    What task will you perform?
-  </span>
-</div>
-<p class="p2">You will be invited to complete the following tasks:</p>
-<ul>
-  <li>
-    <p class="p2">Open your Apple Health App, capture and upload a screenshot of your sleep data over the past weeks.
-    </p>
-  </li>
-  <li>
-    <p class="p2">Reflect on the uploaded screenshot and answer questions to elaborate on your sleep experiences in text format.​</p>
-  </li>
-</ul>
-<p class="p2">The whole task will take you approximately <b> 25 minutes </b> to complete.</p>
-
-
-<div class=title_box>
-  <span style="font-size: 24px;font-family: Arial, Helvetica, sans-serif;color: white;">How do we protect your data?</span>
-</div>
-
-<p class="p2">We protect your data in the following ways:</p>
-<ul>
-  <li>
-    <p class="p2">
-      We designed this task to collect anonymous information using your Prolific ID as unique reference.</p>
-  </li>
-  <li>
-    <p class="p2">
-      We provide detailed instructions to take appropriate screenshots, and exclude your personal information. <b>Please follow the instructions carefully.</b>
-    </p>
-  </li>
-  <li>
-    <p class="p2">
-      At the reception of your data, we will scan through it to remove any remaining identifyable information (e.g. bluring part of a screenshot, removing part of your textual contribution).
-    </p>
-  </li>
-  <li>
-    <p class="p2">
-      We will share the annonymised version of your screenshot with crowd-workers for interpretation and reflection tasks. All other information will be accessible only by the research team.
-    </p>
-  </li>
-  <li>
-    <p class="p2">
-      We will store all data on a password-protected, encrypted server hosted by the TU Delft.
-    </p>
-  </li>
-</ul>
-
-
-<form action="" method="post">
-  {% csrf_token %}
-  <label for="id_consent"><span style="font-size: 18px;font-family:Arial, Helvetica, sans-serif;">I agree</span></label>
-  <input type="checkbox" id="id_consent" name="consent" required /> <br>
-  <input type="submit" class="button" style="font-size: 18px;" value="Agree and Start">
-</form>
-<p class="p0"> </p>
+  </h2>
+  
+  <p>
+    By taking on this task, you will participate in a scientific study in the context of sleep behaviour led by the TU
+    Delft researcher Di Yan, under the supervision of Dr Jacky Bourgeois and Prof. Gerd Kortuem, members of the 'research team'. Your participation is
+    voluntary, and you can withdraw at any time. To complete this task, we expect:
+  </p>
+  <ul>
+    <li>
+      You are an active Apple health user who collected sleep data <b>in the past weeks</b>
+    </li>
+    <li>
+        You use <b>a wearable device</b>(e.g., Apple watch, Garmin watch) to collect sleep data, which help you get an <b>green barchart in different shades</b> according to your sleep pattern.
+    </li>
+  </ul>
+  
+  <p>Notice that <b>you won't be able to complete this survey and get commission</b> if you do not meet these requirements. </p>
+  
+  <div style="text-align: center;">
+    <img src="{% static 'img/apple_health.png' %}" alt="" style="width:220px;margin:20px;">
+    <img src="{% static 'img/find_sleep_data.png' %}" alt="" style="width:220px;margin:20px;">
+    <img src="{% static 'img/sleep_data_example.jpg' %}" alt="" style="width:220px;margin:20px;">
+  </div>
+  
+  <h2>
+      What task will you perform?
+  </h2>
+  
+  <p>You will be invited to complete the following tasks:</p>
+  <ul>
+    <li>
+      Open your Apple Health App, capture and upload a screenshot of your sleep data over the past weeks.
+    </li>
+    <li>
+      Reflect on the uploaded screenshot and answer questions to elaborate on your sleep experiences in text format.
+    </li>
+  </ul>
+  
+  <p>The whole task will take you approximately <b>25 minutes</b> to complete.</p>
+  
+  
+  <h2>
+    How do we protect your data?
+  </h2>
+  
+  <p>We protect your data in the following ways:</p>
+  <ul>
+    <li>
+      <p>
+        We designed this task to collect anonymous information using your Prolific ID as unique reference.</p>
+    </li>
+    <li>
+      <p>
+        We provide detailed instructions to take appropriate screenshots, and exclude your personal information. <b>Please follow the instructions carefully.</b>
+      </p>
+    </li>
+    <li>
+      <p>
+        At the reception of your data, we will scan through it to remove any remaining identifyable information (e.g. bluring part of a screenshot, removing part of your textual contribution).
+      </p>
+    </li>
+    <li>
+      <p>
+        We will share the annonymised version of your screenshot with crowd-workers for interpretation and reflection tasks. All other information will be accessible only by the research team.
+      </p>
+    </li>
+    <li>
+      <p>
+        We will store all data on a password-protected, encrypted server hosted by the TU Delft.
+      </p>
+    </li>
+  </ul>
+  
+  
+  <form action="" method="post">
+    {% csrf_token %}
+    <label for="id_consent"><span style="font-size: 18px;font-family:Arial, Helvetica, sans-serif;">I agree</span></label>
+    <input type="checkbox" id="id_consent" name="consent" required /> <br>
+    <input type="submit" class="button" style="font-size: 18px;" value="Agree and Start">
+  </form>
+</main>
 
 {% endblock content %}

@@ -2,43 +2,40 @@
 {% load static %}
 
 
-{% block title %}
+{% block header %}
 <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-
-<head>
-  <p class="p0">
-    Your experience while performing this task</p>
-</head>
+  <h1>
+    Your experience while performing this task
+  </h1>
 {% endblock %}
 
 
 {% block content %}
-
-<p class="p2">
+<p>
   Please answer the following questions regarding your experience while performing this task.
 </p>
 <form action="" method="post" style="padding: 10px;">
   {% csrf_token %}
 
-  <p class="p2">
+  <p>
     1. I felt comfortable sharing my sleep experiences in this survey.
   </p>
   {{ form.trust_level }}
   <img src="{% static 'img/scale1.png' %}" alt="" style="width:600px; padding: 10px 50px; margin:20px;"><br>
 
-  <p class="p2">
+  <p>
     2. The topic of sleep experiences in this task is
   </p>
   {{ form.intimacy_level }}
   <img src="{% static 'img/scale2.png' %}" alt="" style="width:600px; padding: 10px 50px; margin:20px;"><br>
 
-  <p class="p2">
+  <p>
     3. It is fun and enjoyable to explore data and reflect on my sleep experience.
   </p>
   {{ form.entertainment_level }}
   <img src="{% static 'img/scale1.png' %}" alt="" style="width:600px; padding: 10px 50px; margin:20px;"><br>
 
-  <input type="submit" value="Submit!" style="font-size: 18px;" class="button">
+  <input type="submit" value="Submit!" class="button">
 
 </form>
 
