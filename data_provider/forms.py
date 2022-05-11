@@ -16,6 +16,45 @@ class Annotate_sleep_data_Form(forms.Form):
     question5 = forms.Textarea()
 
 class Disclosure_evaluation_Form(forms.Form):
-    trust_level = forms.NumberInput()
-    intimacy_level = forms.NumberInput()
-    entertainment_level = forms.NumberInput()
+    trust_level = forms.IntegerField(
+    initial=4,
+    required=False,
+    widget=forms.NumberInput(
+            attrs={
+                'class':'form-control-range',
+                'type' : 'range',
+                'min': 1,
+                'max': 7,
+                'step' : 1,
+                'style': 'width:500px;margin-left:120px;' 
+            }
+        )
+    )
+    intimacy_level = forms.IntegerField(
+    initial=4,
+    required=False,
+    widget=forms.NumberInput(
+            attrs={
+                'class':'form-control-range',
+                'type' : 'range',
+                'min': 1,
+                'max': 7,
+                'step' : 1,
+                'style': 'width:500px;margin-left:120px;' 
+            }
+        )
+    )
+    entertainment_level = forms.IntegerField(
+    initial=4,
+    required=False,
+    widget=forms.NumberInput(
+            attrs={
+                'class':'form-control-range',
+                'type' : 'range',
+                'min': 1,
+                'max': 7,
+                'step' : 1,
+                'style': 'width:500px;margin-left:120px;' 
+            }
+        )
+    )

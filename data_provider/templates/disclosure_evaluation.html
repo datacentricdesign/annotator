@@ -1,11 +1,13 @@
-{% extends 'base_generic.html' %} 
+{% extends 'base_generic.html' %}
 {% load static %}
 
 
 {% block title %}
 <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
 <head>
-  <p class="p0"> Please evaluate the experience of doing this survey</p>
+  <p class="p0">
+    Please evaluate the experience of doing this task</p>
 </head>
 {% endblock %}
 
@@ -13,30 +15,37 @@
 {% block content %}
 
 <div class=title_box>
-  <span style="font-size: 24px;font-family: Arial, Helvetica, sans-serif;color: white;"> Survey evaluation</span>
+  <span style="font-size: 24px;font-family: Arial, Helvetica, sans-serif;color: white;">
+    Task evaluation
+  </span>
 </div>
-<p class="p2">Please answer the following questions by inputting a number in the box after each question.</p>
-                    <!--form action="" method="post"  class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" style="padding: 10px;"-->
-                    <form action="" method="post"  style="padding: 10px;">
-                        {% csrf_token %}
-                      
-                      
-                        <label for="id_trust_level" class="p2"> 1. I felt comfortable sharing my sleep experiences in this survey.</label>
-                        <input type="number" id="id_trust_level" required min="1" max="7" step="1" name="trust_level" style="width: 50px; height: 18px;" /><br>
-                        <img src="{% static 'img/scale1.png' %}" alt="" style="width:600px; padding:50px; margin:20px;"><br>
-                      
-                        <label for="id_intimacy_level" class="p2">2. The topic of sleep experiences in this survey is </label>
-                        <input type="number" id="id_intimacy_level" requried min="1" max="7" step="1" name="intimacy_level" style="width: 50px; height: 18px;"/><br>
-                        <img src="{% static 'img/scale2.png' %}" alt="" style="width:600px; padding:50px; margin:20px;"><br>
+<p class="p2">
+  Please answer the following questions by inputting a number in the box after each question.
+</p>
+<form action="" method="post" style="padding: 10px;">
+  {% csrf_token %}
 
-                        <label for="id_entertainment_level" class="p2">3. It is fun and enjoyable to explore data and reflect on my sleep experience.</label>
-                        <input type="number" id="id_entertainment_level" required min="1" max="7" step="1" name="entertainment_level" style="width: 50px; height: 18px;" /><br>
-                        <img src="{% static 'img/scale1.png' %}" alt="" style="width:600px; padding:50px; margin:20px;"><br>
+  <p class="p2">
+    1. I felt comfortable sharing my sleep experiences in this survey.
+  </p>
+  {{ form.trust_level }}
+  <img src="{% static 'img/scale1.png' %}" alt="" style="width:600px; padding: 10px 50px; margin:20px;"><br>
 
-                      
-                        <input type="submit" value="submit!" style="font-size: 18px;"class="button">
-                      
-                    </form>
+  <p class="p2">
+    2. The topic of sleep experiences in this task is
+  </p>
+  {{ form.intimacy_level }}
+  <img src="{% static 'img/scale2.png' %}" alt="" style="width:600px; padding: 10px 50px; margin:20px;"><br>
+
+  <p class="p2">
+    3. It is fun and enjoyable to explore data and reflect on my sleep experience.
+  </p>
+  {{ form.entertainment_level }}
+  <img src="{% static 'img/scale1.png' %}" alt="" style="width:600px; padding: 10px 50px; margin:20px;"><br>
+
+  <input type="submit" value="Submit!" style="font-size: 18px;" class="button">
+
+</form>
 
 
 
