@@ -9,7 +9,7 @@ environ.Env.read_env(env_file=".env")
 STUDY_ID = env("STUDY_ID")
 
 TO_ANNOTATE_FILE = "data/to_annotate_" + STUDY_ID + ".txt"
-DONE_FILE = "data/done_"+ STUDY_ID +".txt"
+DONE_FILE = "data/done_" + STUDY_ID + ".txt"
 
 class Bucket:
 
