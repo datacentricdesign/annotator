@@ -2,14 +2,13 @@
 {% load static %}
 
 {% block header %}
-<link rel="stylesheet" href="{% static 'css/styles.css' %}">
   <h1>Please upload a screenshot of your apple sleep data</h1>
 {% endblock %}
 
 
 {% block content %}
 <h2>
-  1. Capure a screenshot of your sleep data
+  Capure a screenshot of your sleep data
 </h2>
 <p>
   Please follow the following instruction to capture a screenshot of your Apple sleep data.
@@ -36,17 +35,17 @@
 </h3>
 
 <p>
-  The screenshot must cover the all the information framed by the red rectangle.
+  The screenshot must cover all the information framed in the red rectangle.
 </p>
 
 <img src="{% static 'img/upload-step4.png' %}" alt="" style="width: 300px;">
 
 <h2>
-  2. Upload the screenshot
+  Upload the screenshot
 </h2>
 
 <p>
-  Please transform the screenshot from your phone to your computer, then upload it.
+  Please transfer the screenshot from your phone to your computer via AirDrop or your prefered approach. Then, locate the screenshot on your computer and upload it via the following form to move on to the next step.
 </p>
 <form action="" method="post" enctype="multipart/form-data" class="button2">
   {% csrf_token %}

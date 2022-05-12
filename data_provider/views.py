@@ -127,15 +127,14 @@ def annotate_sleep_data(request, prolific_id):
     else:
         form = Annotate_sleep_data_Form()
 
-    # Change templates according to STUDY_ID
-
-    
+    # Change the introduction sentence according to STUDY_ID
+    intro_sentence = ''
     if (STUDY_ID.endswith("NON_DATA_PROVIDER")):
-        return render(request, 'annotate_sleep_data_non_data_provider.html', {'form': form, 'prolific_id': prolific_id})           
-    if (STUDY_ID.endswith("NON_DATA_PROVIDER_TRACKER")):
-        return render(request, 'annotate_sleep_data_non_data_provider.html', {'form': form, 'prolific_id': prolific_id})  
+        intro_sentence += 'The screenshot on the left captures the Apple Sleep data of someone in your age range.'
     else:
-        return render(request, 'annotate_sleep_data_data_provider.html', {'form': form, 'prolific_id': prolific_id})  
+        intro_sentence +=  'The screenshot on the left captures your sleep data of the past week as uploaded in the previous step.'
+
+    return render(request, 'annotate_sleep_data.html', {'form': form, 'prolific_id': prolific_id, 'intro_sentence': intro_sentence})  
 
         
 @csrf_exempt

@@ -56,6 +56,11 @@ ul {
   margin-bottom: 10px;
 }
 
+li {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
 /* button */
 .button {
   background-color: rgb(90, 180, 176);
