@@ -2,27 +2,27 @@
 {% load static %}
 
 {% block header %}
-  <h1>Data Annotation</h1>
+<h1>Data Annotation</h1>
 {% endblock %}
 
 
 {% block content %}
 
-<p>
-  This task aims at understanding your sleep experiences. {{intro_sentence}}
-  The following questions lead you to reflect on your sleep and elaborate on your sleep experience through an exploration of this sleep data.
-</p>
-
-<img style="width:300px; padding-right: 20px; padding-top:20px;position:absolute;" src="/download_sleep_data/{{ prolific_id }}">
+<img style="width:280px; padding-right: 20px; padding-top:20px;position:absolute;"
+  src="/download_sleep_data/{{ prolific_id }}">
 
 <form action="" method="post">
   {% csrf_token %}
-<div style="margin-left: 300px;height: 500px;overflow-y: scroll;">
-  
+  <p style="margin-left: 325px;">
+    This task aims at understanding your sleep experiences. {{intro_sentence}}
+    The following questions lead you to reflect on your sleep and elaborate on your sleep experience through an exploration of this sleep data.
+  </p>
+
+  <div style="margin-left: 300px;height: 480px;overflow-y: scroll;">
+
     <ol>
       <li>
-        Have a look at the <it>Sleep Goal</it>, <it>Average Time in Bed</it> and <it>Average Time Asleep</it>. Calculate the time difference between the goal and
-        the averages. Then, answer the following questions.
+        Have a look at the <it>Sleep Goal</it>, <it>Average Time in Bed</it> and <it>Average Time Asleep</it>. Calculate the time difference between the goal and the averages. Then, answer the following questions.
         <ul>
           <li>
             Relating to your daily routine and energy level, describe what triggers you. For instance, is there any information that you find surprising or encouraging?
@@ -34,12 +34,12 @@
           </li>
         </ul>
       </li>
-  
+
       <li>
         Have a look at the sleep trend and pattern in the bar chart and answer the following questions.
         <ul>
           <li>
-            Relating to your sleep habit and body condition, is there any information that you find surprising or encouraging?
+            Relating to your sleep habit and body condition, describe what triggers you. For instance, is there any information that you find surprising or encouraging?
             <textarea rows="5" id="id_question3" name="question3" required="required"></textarea>
           </li>
           <li>
@@ -48,12 +48,12 @@
           </li>
         </ul>
       </li>
-      
+
       <li>
         Have a look at the latest sleep time and earliest wake-up time in the bar chart and answer the following questions.
         <ul>
           <li>
-            Over the past months, did you go to sleep at this latest sleep time or earliest wake up? If you did, what were the reasons for going late to bed or waking up early on that day? If you didn't, please tell us why you do not sleep or wake up at this time?
+            Over the past months, did you go to sleep at this latest sleep time or earliest wake-up time? If you did, what were the reasons for going late to bed or waking up early on that day(s)? If you didn't, please tell us why you do not sleep or wake up at these times?
             <textarea rows="5" id="id_question5" name="question5" required="required"></textarea>
           </li>
           <li>
@@ -67,11 +67,13 @@
         </ul>
       </li>
     </ol>
-  
-</div>
 
-<input class="button" type="submit" value="Next">
-  
+  </div>
+
+  <div style="float: right;margin-top:10px">
+    <input class="button" type="submit" value="Next">
+  </div>
+
 </form>
 
 {% endblock %}

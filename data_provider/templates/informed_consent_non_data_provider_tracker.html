@@ -14,38 +14,35 @@
 </h2>
 
 <p>
-  By taking on this task, you will participate in a scientific study in the context of sleep behaviour led by the TU Delft researcher Di Yan, under the supervision of Dr Jacky Bourgeois and Prof. Gerd Kortuem, members of the 'research team'. Your participation is voluntary, and you can withdraw at any time. To complete this task, we expect:
+  By taking on this task, you will participate in a scientific study in the context of sleep behaviour led by the TU Delft researcher Di Yan, under the supervision of Dr Jacky Bourgeois and Prof. Gerd Kortuem, members of the 'research team'. Your participation is voluntary, and you can withdraw at any time. To complete this task, we expect that:
 </p>
 <ul>
   <li>
-    You have collected and checked your sleep data in the past three months.
+    you have collected and checked your sleep data in the past three months.
   </li>
   <li>
-    You are over 18 years old;
+    you are over 18 years old;
   </li>
   <li>
-    You are an English native speaker.
+    you are an English native speaker.
   </li>
 </ul>
 
 <p>
-  Notice that <b>you won't be able to complete this task and get commission</b> if you do not meet these requirements.
+  Notice that <b>you won't complete this task and receive your commission</b> if you do not meet these requirements.
 </p>
 
 
 <h2>
   What task will you perform?
 </h2>
-<p>You will be invited to complete the following tasks:</p>
+<p>To complete this task, we will ask you to:</p>
 <ul>
   <li>
-    Have a look at the sleep data from someone in your age range;
+    have a look at the sleep data from someone in your age range;
   </li>
   <li>
-    Reflect on their sleep based on the data in text format;
-  </li>
-  <li>
-    Elaborate on your sleep experiences in text format.
+    and reflect on your sleep experience by answering a series of questions in written form.
   </li>
 </ul>
 
@@ -59,23 +56,26 @@
 
 <ul>
   <li>
-      We designed this task to collect anonymous information using your Prolific ID as unique reference.
+      We collect anonymous information (your answer to the questions) using your Prolific ID as unique reference.
   </li>
   <li>
-      At the reception of your data, we will scan through it to remove any remaining identifyable information (e.g.
-      removing part of your textual contribution).
+      At the reception of your data, we will scan through your answers to remove any remaining identifyable information (e.g. removing part of your textual contribution).
   </li>
   <li>
-      We will store all data on a password-protected, encrypted server hosted by the TU Delft.
+    We store all data on a password-protected, encrypted server hosted by the TU Delft.
   </li>
 </ul>
 
 
 <form action="" method="post">
   {% csrf_token %}
-  <label for="id_consent"><span style="font-size: 18px;font-family:Arial, Helvetica, sans-serif;">I agree</span></label>
-  <input type="checkbox" id="id_consent" name="consent" required /> <br>
-  <input type="submit" class="button" style="font-size: 18px;" value="Agree and Start">
+  <p>
+    <input type="checkbox" id="id_consent" name="consent" required />
+    <label for="id_consent">I read and agree with these terms.</label>
+  </p>
+  <p>
+    <input type="submit" class="button" value="Start the task">
+  </p>
 </form>
 
 {% endblock content %}

@@ -11,25 +11,25 @@
 
 {% block content %}
 <p>
-  Please answer the following questions regarding your experience while performing this task.
+  Please indicate how strongly yopu agree or disagree with the following statements.
 </p>
 <form action="" method="post" style="padding: 10px;">
   {% csrf_token %}
 
   <p>
-    1. I felt comfortable sharing my sleep experiences in this survey.
+    1. In this task, I felt comfortable sharing my sleep experience.
   </p>
   {{ form.trust_level }}
   <img src="{% static 'img/scale1.png' %}" alt="" style="width:600px; padding: 10px 50px; margin:20px;"><br>
 
   <p>
-    2. The topic of sleep experiences in this task is
+    2. In this task, I feel that sleep experience is an intimate topic to discuss.
   </p>
   {{ form.intimacy_level }}
-  <img src="{% static 'img/scale2.png' %}" alt="" style="width:600px; padding: 10px 50px; margin:20px;"><br>
+  <img src="{% static 'img/scale1.png' %}" alt="" style="width:600px; padding: 10px 50px; margin:20px;"><br>
 
   <p>
-    3. It is fun and enjoyable to explore data and reflect on my sleep experience.
+    3. In this task, it was fun and enjoyable to explore data and reflect on my sleep experience.
   </p>
   {{ form.entertainment_level }}
   <img src="{% static 'img/scale1.png' %}" alt="" style="width:600px; padding: 10px 50px; margin:20px;"><br>
