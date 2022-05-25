@@ -22,13 +22,13 @@
 <h3>
   Step 2: Press Sleep
 </h3>
-<img src="{% static 'img/upload-step2.png' %}" alt="" style="width: 300px;">
+<img src="{% static 'img/upload-step2.png' %}" alt="" style="width: 250px;">
 
 <h3>
   Step 3: Press "Show More Sleep Data"
 </h3>
 
-<img src="{% static 'img/upload-step3.png' %}" alt="" style="width: 300px;">
+<img src="{% static 'img/upload-step3.png' %}" alt="" style="width: 250px;">
 
 <h3>
   Step 4: Capture the screenshot on this page
@@ -38,14 +38,26 @@
   The screenshot must cover all the information framed in the red rectangle.
 </p>
 
-<img src="{% static 'img/upload-step4.png' %}" alt="" style="width: 300px;">
+<img src="{% static 'img/upload-step4.png' %}" alt="" style="width: 400px;">
+
+<p>
+  If you don't know how to make a screenshot, please find your iphone type in the image below and press the two buttons in the red rectangular at same time.
+</p>
+<img src="{% static 'img/screenshots_instruction.jpg' %}" alt="" style="width: 700px;">
 
 <h2>
   Upload the screenshot
 </h2>
 
 <p>
-  Please transfer the screenshot from your phone to your computer via AirDrop or your prefered approach. Then, locate the screenshot on your computer and upload it via the following form to move on to the next step.
+  Please transfer the screenshot from your phone to your computer via AirDrop or your prefered approach. If you have questions in transfering the screenshot, please the instructions below.  
+</p>
+
+<img src="{% static 'img/transfer.jpg' %}" alt="" style="width: 900px;">
+
+
+<p>
+Then, locate the screenshot on your computer and upload it in the following area to move on to the next step.
 </p>
 <form action="" method="post" enctype="multipart/form-data" class="button2">
   {% csrf_token %}
