@@ -43,7 +43,7 @@ class Bucket:
                  "Intimacy Level", "INTIMACY_LEVEL")
 
         self.entertainment_level_property = self.thing.find_or_create_property(
-                 "Entertainment Level", "ENTERTAINMENT_LEVEL")
+                "Entertainment Level", "ENTERTAINMENT_LEVEL")
 
         self.ndp_timestamp_property = self.thing.find_or_create_property(
                  "NDP Timestamp", "STATE")

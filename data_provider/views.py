@@ -112,16 +112,16 @@ def annotate_sleep_data(request, prolific_id):
     if request.method == 'POST':
         form = Annotate_sleep_data_Form(request.POST)
         if form.is_valid():
-            q1 = request.POST['question1']
-            q2 = request.POST['question2']
-            q3 = request.POST['question3']
-            q4 = request.POST['question4']
-            q5 = request.POST['question5']
-            q6 = request.POST['question6']
-            q7 = request.POST['question7']
+            q1 = "*"+request.POST['question1']+"*"
+            q2 = request.POST['question2']+"*"
+            q3 = request.POST['question3']+"*"
+            q4 = request.POST['question4']+"*"
+            q5 = request.POST['question5']+"*"
+            q6 = request.POST['question6']+"*"
+            q7 = request.POST['question7']+"*"
 
             # Save annotations to bucket, need to add instances
-            values_questions = (q1, q2, q3, q4, q5, q6, q7, "", "", "")
+            values_questions = ("", "", "complete*", q7, q6, q5, q4, q3, q2, q1)
             Bucket.getInstance().save_sleep_data_annotation(values_questions, int(id_ts_map[prolific_id]))
             return HttpResponseRedirect('/disclosure_evaluation/' + prolific_id)
     else:
