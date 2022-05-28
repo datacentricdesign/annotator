@@ -129,11 +129,11 @@ def annotate_sleep_data(request, prolific_id):
 
     # Change the introduction sentence according to STUDY_ID
     intro_sentence = ''
-    if (STUDY_ID.endswith("NON_DATA_PROVIDER")):
-        intro_sentence += 'The screenshot on the left captures the Apple Sleep data of someone in your age range.'
-    else:
+    if (STUDY_ID.endswith("DATA_PROVIDER")):
         intro_sentence +=  'The screenshot on the left captures your sleep data of the past week as uploaded in the previous step.'
-
+   
+    else:
+        intro_sentence += 'The screenshot on the left captures the Apple Sleep data of someone in your age range.'
     return render(request, 'annotate_sleep_data.html', {'form': form, 'prolific_id': prolific_id, 'intro_sentence': intro_sentence})  
 
         
