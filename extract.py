@@ -2,9 +2,6 @@ from dcd.bucket.thing import Thing, Property
 import os
 import csv
 
-thing_annotator = Thing()
-
-thing_annotator.describe()
 
 def download_media(thing: Thing, property_name: str, from_ts, to_ts):
     property = thing.find_property_by_name(property_name)
@@ -43,6 +40,17 @@ def merge(prop1:Property, prop2:Property):
 
     return prop3
 
+
+def align_values_to(prop1, prop2):
+    index = 0
+    for values_prop2 in prop2.values:
+        if (index >= len(prop1.values) or prop2.values[index][0] != prop1.values[index][0]):
+            tmp = [values_prop2[0]]
+            for val in range(1,len(prop1.values[0])):
+                tmp.append(None)
+            prop1.values.insert(index, tmp)
+        index = index+1
+
 def merge_strava(thing:Thing, from_ts, to_ts):
     property_prolific = thing.find_property_by_name("Prolific ID")
     property_prolific.read(from_ts=from_ts, to_ts=to_ts)
@@ -66,7 +74,58 @@ def merge_strava(thing:Thing, from_ts, to_ts):
         mywriter = csv.writer(file, delimiter=',')
         mywriter.writerows(total.values)
 
-merge_strava(thing_annotator, "2022-01-01 00:00:00", "2022-02-18 00:00:00")
+def merge_sleep_data(thing:Thing, from_ts, to_ts):
+    property_prolific = thing.find_property_by_name("Prolific ID")
+    property_prolific.read(from_ts=from_ts, to_ts=to_ts)
 
-download_media(thing_annotator, "Strava Overview Screenshot", "2022-01-01 00:00:00", "2022-02-18 00:00:00")
-download_media(thing_annotator, "Strava Workout Screenshot", "2022-01-01 00:00:00", "2022-02-18 00:00:00")
+    property_study = thing.find_property_by_name("Study ID")
+    property_study.read(from_ts=from_ts, to_ts=to_ts)
+    align_values_to(property_study, property_prolific)
+    total = merge(property_prolific, property_study)
+
+    property_NDP_Timestamp = thing.find_property_by_name("NDP Timestamp")
+    property_NDP_Timestamp.read(from_ts=from_ts, to_ts=to_ts)
+    align_values_to(property_NDP_Timestamp, property_prolific)
+    total = merge(total, property_NDP_Timestamp)
+
+    property_annotation = thing.find_property_by_name("Sleep Data Annotations")
+    property_annotation.read(from_ts=from_ts, to_ts=to_ts)
+    align_values_to(property_annotation, property_prolific)
+    total = merge(total, property_annotation)
+
+    property_trust = thing.find_property_by_name("Trust Level")
+    property_trust.read(from_ts=from_ts, to_ts=to_ts)
+    align_values_to(property_trust, property_prolific)
+    total = merge(total, property_trust)
+    
+    property_intimacy = thing.find_property_by_name("Intimacy Level")
+    property_intimacy.read(from_ts=from_ts, to_ts=to_ts)
+    align_values_to(property_intimacy, property_prolific)
+    total = merge(total, property_intimacy)
+
+    property_entertainment = thing.find_property_by_name("Entertainment Level")
+    property_entertainment.read(from_ts=from_ts, to_ts=to_ts)
+    align_values_to(property_entertainment, property_prolific)
+    total = merge(total, property_entertainment)
+
+    property_screenshot = thing.find_property_by_name("Sleep data Screenshot")
+    property_screenshot.read(from_ts=from_ts, to_ts=to_ts)
+    align_values_to(property_screenshot, property_prolific)
+    total = merge(total, property_screenshot)
+
+    print()
+
+    with open('data/sleep_data.csv', 'w', newline='') as file:
+        mywriter = csv.writer(file, delimiter=',')
+        mywriter.writerows(total.values)
+
+
+thing_annotator = Thing()
+thing_annotator.describe()
+merge_sleep_data(thing_annotator, "2022-04-01 00:00:00", "2022-06-30 00:00:00")
+download_media(thing_annotator, "Sleep data Screenshot", "2022-04-01 00:00:00", "2022-06-30 00:00:00")
+
+# merge_strava(thing_annotator, "2022-01-01 00:00:00", "2022-02-18 00:00:00")
+
+# download_media(thing_annotator, "Strava Overview Screenshot", "2022-01-01 00:00:00", "2022-02-18 00:00:00")
+# download_media(thing_annotator, "Strava Workout Screenshot", "2022-01-01 00:00:00", "2022-02-18 00:00:00")
