@@ -15,17 +15,21 @@
   {% csrf_token %}
   <p style="margin-left: 325px;">
     This task aims at understanding your sleep experiences. {{intro_sentence}}
-    The following questions lead you to reflect on <b>your sleep and elaborate on your sleep experience</b> through an exploration of this sleep data.
+    The following questions lead you to reflect on <b>your sleep and elaborate on your sleep experience</b> through an
+    exploration of this sleep data.
   </p>
 
   <div style="margin-left: 300px;height: 480px;overflow-y: scroll;">
 
     <ol>
       <li>
-        Have a look at the <it>Sleep Goal</it>, <it>Average Time in Bed</it> and <it>Average Time Asleep</it>in the screenshot. Calculate the time difference between the goal and the averages. Then, answer the following questions.
+        Have a look at the <it>Sleep Goal</it>, <it>Average Time in Bed</it> and <it>Average Time Asleep</it>in the
+        screenshot. Calculate the time difference between the goal and the averages. Then, answer the following
+        questions.
         <ul>
           <li>
-            Relating to <b>your</b> daily routine and energy level, describe what triggers you. For instance, is there any information that you find surprising or encouraging?
+            Relating to <b>your</b> daily routine and energy level, describe what triggers you. For instance, is there
+            any information that you find surprising or encouraging?
             <textarea rows="5" id="id_question1" name="question1" required="required"></textarea>
           </li>
           <li>
@@ -39,7 +43,8 @@
         Have a look at the sleep trend and pattern in the bar chart and answer the following questions.
         <ul>
           <li>
-            Relating to <b>your</b> sleep habit and body condition, describe what triggers you. For instance, is there any information that you find surprising or encouraging?
+            Relating to <b>your</b> sleep habit and body condition, describe what triggers you. For instance, is there
+            any information that you find surprising or encouraging?
             <textarea rows="5" id="id_question3" name="question3" required="required"></textarea>
           </li>
           <li>
@@ -50,14 +55,18 @@
       </li>
 
       <li>
-        Have a look at the latest sleep time and earliest wake-up time in the bar chart and answer the following questions.
+        Have a look at the latest sleep time and earliest wake-up time in the bar chart and answer the following
+        questions.
         <ul>
           <li>
-            Over the past months, did you go to sleep at this latest sleep time or earliest wake-up time? If you did, what were the reasons for going late to bed or waking up early on that day(s)? If you didn't, please tell us why you do not sleep or wake up at these times?
+            Over the past months, did you go to sleep at this latest sleep time or earliest wake-up time? If you did,
+            what were the reasons for going late to bed or waking up early on that day(s)? If you didn't, please tell us
+            why you do not sleep or wake up at these times?
             <textarea rows="5" id="id_question5" name="question5" required="required"></textarea>
           </li>
           <li>
-            Across all information visible on this screenshot, describe what triggers you. For instance, is there any information that you find surprising or encouraging?
+            Across all information visible on this screenshot, describe what triggers you. For instance, is there any
+            information that you find surprising or encouraging?
             <textarea rows="5" id="id_question6" name="question6" required="required"></textarea>
           </li>
           <li>
@@ -71,9 +80,57 @@
   </div>
 
   <div style="float: right;margin-top:10px">
-    <input class="button" type="submit" value="Next">
+    <input class="button" id="next" type="submit" value="Next" disabled="true">
   </div>
 
 </form>
+
+<script>
+  words = {
+    "id_question1": 0,
+    "id_question2": 0,
+    "id_question3": 0,
+    "id_question4": 0,
+    "id_question5": 0,
+    "id_question6": 0,
+    "id_question7": 0,
+  }
+  function countWord(event) {
+    let res = [];
+    let str = event.target.value.replace(/[\t\n\r\.\?\!]/gm, " ").split(" ");
+    str.map((s) => {
+      let trimStr = s.trim();
+      if (trimStr.length > 0) {
+        res.push(trimStr);
+      }
+    });
+    words[event.target.id] = res.length;
+    enoughWords = true;
+    for (const key in words) {
+      if (words[key] < 40) {
+        enoughWords = false
+      }
+    }
+    if (enoughWords == true) {
+      document.getElementById("next").disabled = false;
+      console.log('enough words!!')
+    }
+  }
+
+  window.document.querySelector("#id_question1")
+    .addEventListener("input", countWord);
+  window.document.querySelector("#id_question2")
+    .addEventListener("input", countWord);
+  window.document.querySelector("#id_question3")
+    .addEventListener("input", countWord);
+  window.document.querySelector("#id_question4")
+    .addEventListener("input", countWord);
+  window.document.querySelector("#id_question5")
+    .addEventListener("input", countWord);
+  window.document.querySelector("#id_question6")
+    .addEventListener("input", countWord);
+  window.document.querySelector("#id_question7")
+    .addEventListener("input", countWord);
+</script>
 
 {% endblock %}
