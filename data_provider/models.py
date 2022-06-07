@@ -3,25 +3,45 @@ from multiprocessing.dummy import Array
 from django.db import models
 from dcd.bucket.thing import Thing
 import environ
+import threading
+import time
+
+import requests
 
 env = environ.Env()
 environ.Env.read_env(env_file=".env")
 STUDY_ID = env("STUDY_ID")
+PROLIFIC_API = env("PROLIFIC_API")
+PROLIFIC_STUDY_ID = env("PROLIFIC_STUDY_ID")
 
 TO_ANNOTATE_FILE = "data/to_annotate_" + STUDY_ID + ".txt"
 DONE_FILE = "data/done_" + STUDY_ID + ".txt"
+
+
+class ProlificReturn(threading.Thread):
+   def __init__(self, threadID, name, counter):
+      threading.Thread.__init__(self)
+      self.threadID = threadID
+      self.name = name
+      self.counter = counter
+
+   def run(self):
+      while(True):
+          time.sleep(5)
+          Bucket.getInstance().check_prolific_submissions()
 
 class Bucket:
 
     __instance = None
     @staticmethod
     def getInstance():
-      """ Static access method. """
-      if Bucket.__instance == None:
-         Bucket.__instance = Bucket()
-      return Bucket.__instance
+        """ Static access method. """
+        if Bucket.__instance == None:
+            Bucket.__instance = Bucket()
+        return Bucket.__instance
 
     def __init__(self):
+        print('init Bucket model')
         self.thing = Thing()
 
         self.prolific_id_property = self.thing.find_or_create_property(
@@ -49,6 +69,24 @@ class Bucket:
                  "NDP Timestamp", "STATE")
         
         self.timestamps_to_annotate = self.load_timestamps_to_annotate()
+
+        self.ongoing = {}
+        self.prolific_status = {}
+        self.thread_prolific_return = ProlificReturn(1, "Prolific Return", 1)
+        self.thread_prolific_return.start()
+
+    def check_prolific_submissions(self):
+        print('check prolific return')
+        uri = f'https://api.prolific.co/api/v1/studies/{PROLIFIC_STUDY_ID}/submissions/'
+        result = requests.get(uri, headers={'Authorization': f'Token {PROLIFIC_API}'})
+        json_results = result.json()
+        for submission in json_results['results']:
+            participant_id = submission['participant_id']
+            status = submission['status']
+            if status == 'RETURNED' and self.ongoing.get(participant_id) is not None:
+                # we need to save the unused image timestamp
+                timestamp = self.ongoing.pop(participant_id)
+                self.timestamps_to_annotate.append(timestamp)
 
     def save_prolific_id(self, prolific_id, ts):
         values = (prolific_id,)
@@ -100,9 +138,12 @@ class Bucket:
         # remove all elements from done in to_annotate
         return list(filter(lambda i: i not in done, to_annotate))
 
-    def get_next_image_timestamp(self):
+    def get_next_image_timestamp(self, prolific_id):
         timestamp = self.timestamps_to_annotate.pop(0)
-        print(timestamp)
+        self.ongoing[prolific_id] = timestamp
+        return timestamp
+
+    def image_timestamp_done(self, prolific_id):
+        timestamp = self.ongoing.pop(prolific_id)
         with open(DONE_FILE, 'a') as file:
             file.write("\n" + str(timestamp))
-        return timestamp
