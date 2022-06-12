@@ -142,6 +142,10 @@ class Bucket:
         timestamp = self.timestamps_to_annotate.pop(0)
         self.ongoing[prolific_id] = timestamp
         return timestamp
+    
+    def set_image_timestamp_dp(self, prolific_id, timestamp):
+        self.ongoing[prolific_id] = timestamp
+        return timestamp
 
     def image_timestamp_done(self, prolific_id):
         timestamp = self.ongoing.pop(prolific_id)

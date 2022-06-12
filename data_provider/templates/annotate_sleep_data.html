@@ -7,83 +7,91 @@
 
 
 {% block content %}
+<div style="position:absolute">
+<img style="width:250px; padding-right: 20px;"
+  src="/download_sleep_data/{{ prolific_id }}"><br>
+<img src="{% static 'img/bar.png' %}" alt="" style="width:210px;margin:0px;">
+</div>
 
-<img style="width:280px; padding-right: 20px; padding-top:20px;position:absolute;"
-  src="/download_sleep_data/{{ prolific_id }}">
 
-<form action="" method="post">
+<div style="position:relative">
+  <form action="" method="post">
   {% csrf_token %}
-  <p style="margin-left: 325px;">
+  <p style="margin-left: 275px;">
     This task aims at understanding your sleep experiences. {{intro_sentence}}
-    The following questions lead you to reflect on <b>your sleep and elaborate on your sleep experience</b> through an
-    exploration of this sleep data.
+    The following questions lead you to reflect on <b>your sleep behaviour and elaborate on your sleep experience</b> through an
+    exploration of this sleep data. Notice that your answers to all questions below should be longer than 40 words, <b> otherwise you cannot go to the next page</b> by clicking the "next" button.
   </p>
 
-  <div style="margin-left: 300px;height: 480px;overflow-y: scroll;">
-
+  <div style="margin-left: 250px;height: 460px;overflow-y: scroll;">
     <ol>
       <li>
-        Have a look at the <it>Sleep Goal</it>, <it>Average Time in Bed</it> and <it>Average Time Asleep</it>in the
-        screenshot. Calculate the time difference between the goal and the averages. Then, answer the following
+        Have a look at the <b>Sleep Goal, Average Time in Bed and Average Time Asleep</b> in the
+        screenshot and answer the following questions.
+        <ul>
+          <li>
+           What data do you find interesting, surprising or encouraging? Or what data help you recall or realize your past sleep experiences? (at least 40 words)
+           <p style="font-size:13px; font-style: italic;">
+            Example: I am surprised that there is only 4mins difference between the sleep goal (8 hours) and average time in bed (8 hours 4 mins), although the actual sleep time (7 hours and 12 mins) is 48mins shorter than the goal.
+            </p>
+          </li>
+          <textarea rows="5" id="id_question1" name="question1" required="required"></textarea>
+          
+          
+          <li>
+          Why do you have this feeling? Or what does this data help you recall or realize? Please relate to your sleep experience and tell us more. (at least 40 words)
+          <p style="font-size:13px; font-style:italic;">
+            {{example_sentence}}</p> 
+        </li>
+          <textarea rows="5" id="id_question2" name="question2" width: required="required"></textarea>
+         </ul>
+      </li>
+
+
+      <li>
+        Have a look at the <b> sleep trend and pattern in the bar chart </b> answer the following questions.
+        <ul>
+          <li>
+            What data do you find interesting, surprising or encouraging? Or what data help you recall or realize your past sleep experiences? (at least 40 words)
+          </li>
+          <textarea rows="5" id="id_question3" name="question3" required="required"></textarea>
+          <li>
+            Why do you have this feeling? Or what does this data help you recall or realize? Please relate to your sleep experience and tell us more. (at least 40 words)
+          </li>
+          <textarea rows="5" id="id_question4" name="question4" required="required"></textarea>
+           </ul>
+      </li>
+
+
+
+      <li>
+        Have a look at the <b>latest sleep time and earliest wake-up time </b>in the bar chart and answer the following
         questions.
         <ul>
           <li>
-            Relating to <b>your</b> daily routine and energy level, describe what triggers you. For instance, is there
-            any information that you find surprising or encouraging?
-            <textarea rows="5" id="id_question1" name="question1" required="required"></textarea>
-          </li>
-          <li>
-            Why does this information trigger you? Please relate to <b>your</b> sleep experience and tell us more.
-            <textarea rows="5" id="id_question2" name="question2" required="required"></textarea>
-          </li>
-        </ul>
-      </li>
-
-      <li>
-        Have a look at the sleep trend and pattern in the bar chart and answer the following questions.
-        <ul>
-          <li>
-            Relating to <b>your</b> sleep habit and body condition, describe what triggers you. For instance, is there
-            any information that you find surprising or encouraging?
-            <textarea rows="5" id="id_question3" name="question3" required="required"></textarea>
-          </li>
-          <li>
-            Why does this information trigger you? Please relate to your sleep experience and tell us more.
-            <textarea rows="5" id="id_question4" name="question4" required="required"></textarea>
-          </li>
-        </ul>
-      </li>
-
-      <li>
-        Have a look at the latest sleep time and earliest wake-up time in the bar chart and answer the following
-        questions.
-        <ul>
-          <li>
-            Over the past months, did you go to sleep at this latest sleep time or earliest wake-up time? If you did,
+            Over the recent month, do you usually sleep at the latest sleep time or earliest wake-up time in the screenshot? If you did,
             what were the reasons for going late to bed or waking up early on that day(s)? If you didn't, please tell us
-            why you do not sleep or wake up at these times?
-            <textarea rows="5" id="id_question5" name="question5" required="required"></textarea>
+            why you do not sleep or wake up at these times? Please <b>mention yes or no </b>in the begining of your answer.(at least 40 words)
           </li>
-          <li>
-            Across all information visible on this screenshot, describe what triggers you. For instance, is there any
-            information that you find surprising or encouraging?
-            <textarea rows="5" id="id_question6" name="question6" required="required"></textarea>
-          </li>
-          <li>
-            Why does this information trigger you? Please relate to <b>your</b> sleep experience and tell us more.
-            <textarea rows="5" id="id_question7" name="question7" required="required"></textarea>
-          </li>
+          <textarea rows="5" id="id_question5" name="question5" required="required"></textarea>
         </ul>
       </li>
+     
+      <p style="font-size:14px;">
+        <b>Notice: If the "next" button do not direct you to the next page, please check your answers and make sure that each of those are longer than 40 words.</b>
+       </p>
+
+
     </ol>
-
+    
   </div>
-
+  
   <div style="float: right;margin-top:10px">
     <input class="button" id="next" type="submit" value="Next" disabled="true">
   </div>
 
 </form>
+</div>
 
 <script>
   words = {
@@ -92,8 +100,6 @@
     "id_question3": 0,
     "id_question4": 0,
     "id_question5": 0,
-    "id_question6": 0,
-    "id_question7": 0,
   }
   function countWord(event) {
     let res = [];
@@ -127,10 +133,7 @@
     .addEventListener("input", countWord);
   window.document.querySelector("#id_question5")
     .addEventListener("input", countWord);
-  window.document.querySelector("#id_question6")
-    .addEventListener("input", countWord);
-  window.document.querySelector("#id_question7")
-    .addEventListener("input", countWord);
+ 
 </script>
 
 {% endblock %}
