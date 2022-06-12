@@ -132,10 +132,10 @@ def annotate_sleep_data(request, prolific_id):
 
     if (STUDY_ID.endswith("DATA_PROVIDER")):
         intro_sentence +=  'The screenshot on the left captures your sleep data of the past week as uploaded in the previous step.'
-        example_sentence += 'Example: I am surprised that my average time in bed is hitting the sleep goal. Achieving sleep goals was difficult for me, because I am more productive in the evening and I usually work before sleeping. When I am so engrossed in work, it is hard to immediately stop working and go to bed. Recenlty, I am trying to get up and sleep early, which seems going well!'
+        example_sentence += 'Example: Achieving sleep goals was difficult for me, because I am more productive in the evening and I usually work before sleeping. When I am so engrossed in work, it is hard to immediately stop working and go to bed. Recenlty, I am trying to get up and sleep early, which seems going well!'
     else:
         intro_sentence += 'The screenshot on the left captures the Apple Sleep data of someone in your age range.'
-        example_sentence += 'Example: I am surprised that the average time in bed is hitting the sleep goal. Achieving sleep goals has been very difficult for me, even for the average sleep time in bed. I am more productive in the evening, so I work after dinner quite often. When I am so engrossed in work, it is hard to immediately stop working and go to bed, even when it is bedtime.'
+        example_sentence += 'Example: Achieving sleep goals has been very difficult for me, even for the average sleep time in bed. I am more productive in the evening, so I work after dinner quite often. When I am so engrossed in work, it is hard to immediately stop working and go to bed, even when it is bedtime.'
     
     return render(request, 'annotate_sleep_data.html', {'form': form, 'prolific_id': prolific_id, 'intro_sentence': intro_sentence,'example_sentence':example_sentence})  
 
