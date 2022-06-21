@@ -117,10 +117,11 @@ def annotate_sleep_data(request, prolific_id):
             q3 = request.POST['question3']+"*"
             q4 = request.POST['question4']+"*"
             q5 = request.POST['question5']+"*"
+            q6 = request.POST['question6']+"*"
             
 
             # Save annotations to bucket, need to add instances
-            values_questions = ("", "", "", "", "*", q5, q4, q3, q2, q1)
+            values_questions = ("", "", "", "", q6, q5, q4, q3, q2, q1)
             Bucket.getInstance().save_sleep_data_annotation(values_questions, int(id_ts_map[prolific_id]))
             return HttpResponseRedirect('/disclosure_evaluation/' + prolific_id)
     else:
@@ -128,18 +129,12 @@ def annotate_sleep_data(request, prolific_id):
 
     # Change the introduction sentence according to STUDY_ID
     intro_sentence = ''
-    example_sentence = ''
 
     if (STUDY_ID.endswith("NON_DATA_PROVIDER")):
-        intro_sentence += 'The screenshot on the left captures the Apple Sleep data of someone in your age range.'
-        example_sentence += 'Example: Achieving sleep goals has been very difficult for me, even for the average sleep time in bed. I am more productive in the evening, so I work after dinner quite often. When I am so engrossed in work, it is hard to immediately stop working and go to bed, even when it is bedtime.'
-    
+        intro_sentence += 'The screenshot on the left captures the Apple Sleep data of someone in your age range.'    
     else:
         intro_sentence +=  'The screenshot on the left captures your sleep data of the past week as uploaded in the previous step.'
-        example_sentence += 'Example: Achieving sleep goals was difficult for me, because I am more productive in the evening and I usually work before sleeping. When I am so engrossed in work, it is hard to immediately stop working and go to bed. Recenlty, I am trying to get up and sleep early, which seems going well!'
-
-        
-    return render(request, 'annotate_sleep_data.html', {'form': form, 'prolific_id': prolific_id, 'intro_sentence': intro_sentence,'example_sentence':example_sentence})  
+    return render(request, 'annotate_sleep_data.html', {'form': form, 'prolific_id': prolific_id, 'intro_sentence': intro_sentence})  
 
         
 @csrf_exempt

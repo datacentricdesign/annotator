@@ -10,9 +10,8 @@
 <div style="position:absolute">
 <img style="width:250px; padding-right: 20px;"
   src="/download_sleep_data/{{ prolific_id }}"><br>
-<img src="{% static 'img/bar.png' %}" alt="" style="width:210px;margin:0px;">
+<img src="{% static 'img/bar.png' %}" alt="" style="width:120px;margin:0px;">
 </div>
-
 
 <div style="position:relative">
   <form action="" method="post">
@@ -20,50 +19,57 @@
   <p style="margin-left: 275px;">
     This task aims at understanding your sleep experiences. {{intro_sentence}}
     The following questions lead you to reflect on <b>your sleep behaviour and elaborate on your sleep experience</b> through an
-    exploration of this sleep data. Notice that your answers to all questions below should be longer than 40 words, <b> otherwise you cannot go to the next page</b> by clicking the "next" button.
+    exploration of this sleep data. Notice that <b>your answers to all questions below needs to meet the word limit</b>, otherwise you cannot go the next page by clicking the “next” button.
   </p>
 
   <div style="margin-left: 250px;height: 460px;overflow-y: scroll;">
     <ol>
+      <!-- The first question-->
+      <li>
+        What is your experience in collecting and checking sleep data? For instance, do you keep collecting and checking your sleep data on purpose?
+        Or do you collect other types of data (e.g., running data, heartrate data), so you have some experience in understanding data? (at least 20 words)<br>
+      </li>
+        
+       <textarea rows="5" id="id_question6" name="question6" required="required"></textarea>
+      
       <li>
         Have a look at the <b>Sleep Goal, Average Time in Bed and Average Time Asleep</b> in the
         screenshot and answer the following questions.
+        <!-- The second question-->
         <ul>
           <li>
-           What data do you find interesting, surprising or encouraging? Or what data help you recall or realize <b>your past sleep experiences</b> ? (at least 40 words)
-           <p style="font-size:13px; font-style: italic;">
-            Example: I am surprised that the average time in bed is hitting the sleep goal. Although the actual sleep time (7 hours and 12 mins) is 48mins shorter than the goal, there is only 4mins difference between the sleep goal (8 hours) and average time in bed (8 hours 4 mins).
-            </p>
+            Describe what data triggers you. For instance, what data help you recall or realize your past sleep experiences</b> ? Or what data do you find interesting, surprising or encouraging? (at least 20 words)
+            <p style="font-size:13px; font-style: italic;">
+            Example: The average time in bed (8 hours 4mins) hits the sleep goal (8 hours), although the actual sleep time is 48mins shorter than the goal.
+           </p>
           </li>
           <textarea rows="5" id="id_question1" name="question1" required="required"></textarea>
-          
-          
           <li>
-          Why do you have this feeling? Or what does this data help you recall or realize? Please relate to <b>your sleep experience </b>and tell us more. (at least 40 words)
+          Why does the data trigger you? For instance, what information does the data recall you? Or why do you find the data interesting, surprising or encouraging? Please relate to <b>your sleep experience </b>and tell us more. (at least 30 words)
           <p style="font-size:13px; font-style:italic;">
-            {{example_sentence}}</p> 
+          Example: Achieving sleep goals has been very difficult for me, even the average sleep time in bed. I am more productive in the evening, so I work after dinner quite often. When I am so engrossed in work, it is hard to immediately stop working and go to bed, even when it is bedtime.
         </li>
           <textarea rows="5" id="id_question2" name="question2" width: required="required"></textarea>
          </ul>
       </li>
 
-
+      <!-- The third question--> 
       <li>
         Have a look at the <b> sleep trend and pattern in the bar chart </b> answer the following questions.
         <ul>
           <li>
-            What data do you find interesting, surprising or encouraging? Or what data help you recall or realize <b>your past sleep experiences</b>? (at least 40 words)
+            Describe what data triggers you. For instance, what data help you recall or realize your past sleep experiences? Or what data do you find interesting, surprising or encouraging? (at least 20 words)
           </li>
           <textarea rows="5" id="id_question3" name="question3" required="required"></textarea>
           <li>
-            Why do you have this feeling? Or what does this data help you recall or realize? Please relate to <b>your sleep experience</b> and tell us more. (at least 40 words)
-          </li>
+
+            Why does the data trigger you? For instance, what information does the data recall you? Or why do you find the data interesting, surprising or encouraging? Please relate to <b>your sleep experience </b>and tell us more. (at least 30 words)
+            </li>
           <textarea rows="5" id="id_question4" name="question4" required="required"></textarea>
            </ul>
       </li>
 
-
-
+      <!-- The forth question-->
       <li>
         Have a look at the <b>latest sleep time and earliest wake-up time </b>in the bar chart and answer the following
         questions.
@@ -76,9 +82,10 @@
           <textarea rows="5" id="id_question5" name="question5" required="required"></textarea>
         </ul>
       </li>
-     
+
+      <!-- The forth question-->
       <p style="font-size:14px;">
-        <b>Notice: If the "next" button do not direct you to the next page, please check your answers and make sure that each of those are longer than 40 words.</b>
+        <b>Notice: If the "next" button do not direct you to the next page, please check your answers and make sure the length of your answer meet the requirements</b>
        </p>
 
 
@@ -100,6 +107,7 @@
     "id_question3": 0,
     "id_question4": 0,
     "id_question5": 0,
+    "id_question6": 0,
   }
   function countWord(event) {
     let res = [];
@@ -113,16 +121,27 @@
     words[event.target.id] = res.length;
     enoughWords = true;
     for (const key in words) {
-      if (words[key] < 40) {
-        enoughWords = false
+      if (key === "id_question1" || key === "id_question3" || key === "id_question6") {
+        if (words[key] < 20) {
+          enoughWords = false
+        }
+      }
+      if (key === "id_question2" || key === "id_question4" || key === "id_question5") {
+        if (words[key] < 30) {
+          enoughWords = false
+        }
       }
     }
     if (enoughWords == true) {
       document.getElementById("next").disabled = false;
       console.log('enough words!!')
     }
+    else {
+      document.getElementById("next").disabled = true;
+    }
   }
 
+  
   window.document.querySelector("#id_question1")
     .addEventListener("input", countWord);
   window.document.querySelector("#id_question2")
@@ -133,7 +152,8 @@
     .addEventListener("input", countWord);
   window.document.querySelector("#id_question5")
     .addEventListener("input", countWord);
- 
+  window.document.querySelector("#id_question6")
+    .addEventListener("input", countWord);
 </script>
 
 {% endblock %}

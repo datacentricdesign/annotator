@@ -11,25 +11,25 @@
 
 {% block content %}
 <p>
-  Please indicate how strongly you agree or disagree with the following statements.
+  This survey aims to know your experience of reflecting on data and elaborating on your sleep experience. Please indicate how strongly you agree or disagree with the following statements.
 </p>
 <form action="" method="post" style="padding: 10px;">
   {% csrf_token %}
 
   <p>
-    1. In this task, I felt comfortable sharing my sleep experience.
+    1. Reflecting on the data in this task, I felt safe to share my sleep experience.
   </p>
   {{ form.trust_level }}
   <img src="{% static 'img/scale1.png' %}" alt="" style="width:600px; padding: 10px 50px; margin:20px;"><br>
 
   <p>
-    2. In this task, I feel that sleep experience is an intimate topic to discuss.
+    2. Reflecting on the data in this task, I feel that sleep experience is an intimate topic to discuss.
   </p>
   {{ form.intimacy_level }}
   <img src="{% static 'img/scale1.png' %}" alt="" style="width:600px; padding: 10px 50px; margin:20px;"><br>
 
   <p>
-    3. In this task, it was fun and enjoyable to explore data and reflect on my sleep experience.
+    3. Reflecting on the data in this task, it was fun and enjoyable to contemplate my sleep experience.
   </p>
   {{ form.entertainment_level }}
   <img src="{% static 'img/scale1.png' %}" alt="" style="width:600px; padding: 10px 50px; margin:20px;"><br>
