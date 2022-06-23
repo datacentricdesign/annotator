@@ -122,8 +122,8 @@ def merge_sleep_data(thing:Thing, from_ts, to_ts):
 
 thing_annotator = Thing()
 thing_annotator.describe()
-merge_sleep_data(thing_annotator, "2022-04-01 00:00:00", "2022-06-30 00:00:00")
-download_media(thing_annotator, "Sleep data Screenshot", "2022-04-01 00:00:00", "2022-06-30 00:00:00")
+merge_sleep_data(thing_annotator, "2022-06-20 00:00:00", "2022-06-23 00:00:00")
+download_media(thing_annotator, "Sleep data Screenshot", "2022-06-20 00:00:00", "2022-06-23 00:00:00")
 
 # merge_strava(thing_annotator, "2022-01-01 00:00:00", "2022-02-18 00:00:00")
 
