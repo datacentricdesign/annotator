@@ -74,7 +74,7 @@ def upload_sleep_data(request, prolific_id):
         form = Upload_sleep_data_Form(request.POST, request.FILES)
         if form.is_valid():
             handle_sleep_file(request.FILES['screenshot_sleep_data'], prolific_id)
-            return HttpResponseRedirect('/annotate_sleep_data/' + prolific_id)
+            return HttpResponseRedirect('/thanks/')
     else:
         form = Upload_sleep_data_Form()
     return render(request,'upload_sleep_data.html', {'form': form})
