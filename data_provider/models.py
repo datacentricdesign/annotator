@@ -92,6 +92,22 @@ class Bucket:
         values = (prolific_id,)
         self.prolific_id_property.update_values(values=values, time_ms=ts)
 
+    
+    def retrieve_ts_by_prolific_id(self, prolific_id):
+        '''
+        Retrieve the timestamp of a prolific user who already visited the platform for a pre study.
+        '''
+        # Get the current timestamp
+        current_ts = int(time.time()) * 1000
+        # Get the prolific IDs collected from the beginning until now
+        prop = self.thing.find_property_by_name("Prolific ID")
+        prop.read(0,current_ts)
+        # Loop through all timestamp/prolific ID
+        for values in prop.values:
+            # Return the timestamp associated with the matching prolific ID
+            if (values[1] == prolific_id):
+                return values[0]
+
     def save_ndp_timestamp(self, ndp_timestamp, ts):
         values = (ndp_timestamp,)
         self.ndp_timestamp_property.update_values(values=values, time_ms=ts)
