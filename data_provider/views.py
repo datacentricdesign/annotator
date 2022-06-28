@@ -28,8 +28,6 @@ def index(request):
     print(STUDY_ID)
     if (STUDY_ID.endswith("NON_DATA_PROVIDER")):
         return render(request, 'index_non_data_provider.html', context=context)
-    if (STUDY_ID.endswith("DATA_PROVIDER_TRACKER")):
-        return render(request, 'index_non_data_provider_tracker.html', context=context)
     else:
         return render(request, 'index_data_provider.html', context=context)
   
@@ -48,8 +46,6 @@ def informed_consent(request):
             # Show template according to the type of participants
             if (STUDY_ID.endswith("NON_DATA_PROVIDER")):
                 return HttpResponseRedirect('/annotate_sleep_data/' + prolific_id)
-            if (STUDY_ID.endswith("NON_DATA_PROVIDER_TRACKER")):
-                return HttpResponseRedirect('/annotate_sleep_data/' + prolific_id)
             else:
                 return HttpResponseRedirect('/upload_sleep_data/' + prolific_id)
 
@@ -62,8 +58,6 @@ def informed_consent(request):
     # Show template according to the type of participants
     if (STUDY_ID.endswith("NON_DATA_PROVIDER")):
         return render(request, 'informed_consent_non_data_provider.html', context=context)
-    if (STUDY_ID.endswith("NON_DATA_PROVIDER_TRACKER")):
-        return render(request, 'informed_consent_non_data_provider_tracker.html', context=context)
             
     else:
         return render(request, 'informed_consent_data_provider.html', context=context)
@@ -93,7 +87,7 @@ def handle_sleep_file(f, id):
 @csrf_exempt
 def download_sleep_data(request, prolific_id):
     if (id_ts_map[prolific_id] is not None):
-        if (STUDY_ID.endswith("NON_DATA_PROVIDER") or STUDY_ID.endswith("NON_DATA_PROVIDER_TRACKER")):      
+        if (STUDY_ID.endswith("NON_DATA_PROVIDER")):      
             # If participant is a non-data provider, download the previously uploaded picture
             timestamp = Bucket.getInstance().get_next_image_timestamp(prolific_id)
             Bucket.getInstance().save_ndp_timestamp(timestamp, int(id_ts_map[prolific_id]))    
