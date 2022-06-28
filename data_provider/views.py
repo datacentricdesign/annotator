@@ -18,21 +18,24 @@ id_ts_map = {
 BASE_URL = '/'
 
 
-def index(request):
-    """View function for home page of site."""
-    context = {}
-    if "PROLIFIC_ID" in request.GET:
-        context["prolific_id"] = request.GET['PROLIFIC_ID']
-        print(context)
-    # Show template according to the type of participants
-    print(STUDY_ID)
-    if (STUDY_ID.endswith("NON_DATA_PROVIDER")):
-        return render(request, 'index_non_data_provider.html', context=context)
-    else:
-        return render(request, 'index_data_provider.html', context=context)
-  
+# def index(request):
+#     """View function for home page of site."""
+#     context = {}
+#     if "PROLIFIC_ID" in request.GET:
+#         context["prolific_id"] = request.GET['PROLIFIC_ID']
+#         print(context)
+#     # Show template according to the type of participants
+#     print(STUDY_ID)
+#     if (STUDY_ID.endswith("NON_DATA_PROVIDER")):
+#         return render(request, 'index_non_data_provider.html', context=context)
+#     else:
+#         return render(request, 'index_data_provider.html', context=context)
+
+
+# # # # # Pre Study
+
 @csrf_exempt
-def informed_consent(request):
+def informed_consent_pre(request):
     prolific_id = None
     if "PROLIFIC_ID" in request.GET:
         prolific_id = request.GET['PROLIFIC_ID']
@@ -44,23 +47,14 @@ def informed_consent(request):
             Bucket.getInstance().save_prolific_id(prolific_id, ts)
             Bucket.getInstance().save_study_id(ts)
             # Show template according to the type of participants
-            if (STUDY_ID.endswith("NON_DATA_PROVIDER")):
-                return HttpResponseRedirect('/annotate_sleep_data/' + prolific_id)
-            else:
-                return HttpResponseRedirect('/upload_sleep_data/' + prolific_id)
-
+            return HttpResponseRedirect('/pre/upload_sleep_data/' + prolific_id)
     else:
         form = ConsentForm()
-    context = {
-        "prolific_id": prolific_id,
-        "form": form
-    }
-    # Show template according to the type of participants
-    if (STUDY_ID.endswith("NON_DATA_PROVIDER")):
-        return render(request, 'informed_consent_non_data_provider.html', context=context)
-            
-    else:
-        return render(request, 'informed_consent_data_provider.html', context=context)
+        context = {
+            "prolific_id": prolific_id,
+            "form": form
+        }
+    return render(request, 'informed_consent_pre_study.html', context=context)
 
 @csrf_exempt
 def upload_sleep_data(request, prolific_id):
@@ -68,10 +62,11 @@ def upload_sleep_data(request, prolific_id):
         form = Upload_sleep_data_Form(request.POST, request.FILES)
         if form.is_valid():
             handle_sleep_file(request.FILES['screenshot_sleep_data'], prolific_id)
-            return HttpResponseRedirect('/thanks/')
+            return HttpResponseRedirect('/pre/thanks/')
     else:
         form = Upload_sleep_data_Form()
     return render(request,'upload_sleep_data.html', {'form': form})
+
 
 def handle_sleep_file(f, id):
     file_name = f'./data/{id_ts_map[id]}.png'
@@ -82,6 +77,39 @@ def handle_sleep_file(f, id):
     Bucket.getInstance().upload_sleep_screenshot(int(id_ts_map[id]), file_name)
     # Then we delete the local file
     os.remove(file_name)
+
+@csrf_exempt
+def thanks_pre(request):
+    context = {}
+    return render(request, 'thanks_pre.html', context=context)
+
+
+# # # # Main Study
+
+@csrf_exempt
+def informed_consent_main(request):
+    prolific_id = None
+    if "PROLIFIC_ID" in request.GET:
+        prolific_id = request.GET['PROLIFIC_ID']
+    if request.method == 'POST':
+        form = ConsentForm(request.POST)
+        if form.is_valid():
+            if (STUDY_ID.endswith("NON_DATA_PROVIDER")):
+                ts = int(time.time()) * 1000
+                id_ts_map[prolific_id] = ts
+                Bucket.getInstance().save_prolific_id(prolific_id, ts)
+                Bucket.getInstance().save_study_id(ts)
+            else:
+                id_ts_map[prolific_id] = Bucket.getInstance().retrieve_ts_by_prolific_id(prolific_id)
+            return HttpResponseRedirect('/main/annotate_sleep_data/' + prolific_id)
+    else:
+        form = ConsentForm()
+    # Show template according to the type of participants    
+    if (STUDY_ID.endswith("NON_DATA_PROVIDER")):
+        intro_sentence += '...'    
+    else:
+        intro_sentence +=  '...'
+    return render(request, 'informed_consent_main.html', {'form': form, 'prolific_id': prolific_id, 'intro_sentence': intro_sentence}) 
 
 
 @csrf_exempt
@@ -117,7 +145,7 @@ def annotate_sleep_data(request, prolific_id):
             # Save annotations to bucket, need to add instances
             values_questions = ("", "", "", "", q5, q4, q3, q2, q1,q6)
             Bucket.getInstance().save_sleep_data_annotation(values_questions, int(id_ts_map[prolific_id]))
-            return HttpResponseRedirect('/disclosure_evaluation/' + prolific_id)
+            return HttpResponseRedirect('/main/disclosure_evaluation/' + prolific_id)
     else:
         form = Annotate_sleep_data_Form()
 
@@ -127,7 +155,7 @@ def annotate_sleep_data(request, prolific_id):
     if (STUDY_ID.endswith("NON_DATA_PROVIDER")):
         intro_sentence += 'The screenshot on the left captures the Apple Sleep data of someone in your age range.'    
     else:
-        intro_sentence +=  'The screenshot on the left captures your sleep data of the past week as uploaded in the previous step.'
+        intro_sentence +=  'The screenshot on the left captures your sleep data of the past week as uploaded in the previous study.'
     return render(request, 'annotate_sleep_data.html', {'form': form, 'prolific_id': prolific_id, 'intro_sentence': intro_sentence})  
 
         
@@ -149,7 +177,7 @@ def disclosure_evaluation(request, prolific_id):
 
             # 
             Bucket.getInstance().image_timestamp_done(prolific_id)
-            return HttpResponseRedirect('/thanks')
+            return HttpResponseRedirect('/main/thanks')
     else:
         form = Disclosure_evaluation_Form()
 
@@ -157,14 +185,14 @@ def disclosure_evaluation(request, prolific_id):
 
 
 @csrf_exempt
-def thanks(request):
+def thanks_main(request):
     context = {}
-    return render(request, 'thanks.html', context=context)
+    return render(request, 'thanks_main.html', context=context)
 
-@csrf_exempt
-def leave(request):
-    context = {}
-    return render(request, 'leave.html', context=context)
+# @csrf_exempt
+# def leave(request):
+#     context = {}
+#     return render(request, 'leave.html', context=context)
 
 
 
