@@ -9,7 +9,7 @@
 {% block content %}
 <div style="position:absolute">
 <img style="width:250px; padding-right: 20px;"
-  src="/download_sleep_data/{{ prolific_id }}"><br>
+  src="/main/download_sleep_data/{{ prolific_id }}"><br>
 <img src="{% static 'img/bar.png' %}" alt="" style="width:120px;margin:0px;">
 </div>
 
@@ -24,14 +24,6 @@
 
   <div style="margin-left: 250px;height: 460px;overflow-y: scroll;">
     <ol>
-      <!-- The first question-->
-      <li>
-        What is your experience in collecting and checking sleep data? For instance, do you keep collecting and checking your sleep data on purpose?
-        Or do you collect other types of data (e.g., running data, heartrate data), so you have some experience in understanding data? (at least 20 words)<br>
-      </li>
-        
-       <textarea rows="5" id="id_question6" name="question6" required="required"></textarea>
-      
       <li>
         Have a look at the <b>Sleep Goal, Average Time in Bed and Average Time Asleep</b> in the
         screenshot and answer the following questions.
@@ -83,12 +75,20 @@
         </ul>
       </li>
 
+      <!-- The first question-->
+    <li>
+      What is your experience in collecting and checking sleep data? For instance, do you keep collecting and checking your sleep data on purpose?
+      Or do you collect other types of data (e.g., running data, heartrate data), so you have some experience in understanding data? (at least 20 words)<br>
+    </li>
+    <ul>
+     <textarea rows="5" id="id_question6" name="question6" required="required"></textarea>
+    </ul>
       <!-- The forth question-->
       <p style="font-size:14px;">
         <b>Notice: If the "next" button do not direct you to the next page, please check your answers and make sure the length of your answer meet the requirements</b>
        </p>
 
-
+    
     </ol>
     
   </div>

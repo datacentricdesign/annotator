@@ -50,19 +50,19 @@
 </h2>
 
 <p>
-  Please transfer the screenshot from your phone to your computer via AirDrop or your prefered approach. If you have questions in transfering the screenshot, please the instructions below.  
+  If you are doing the task on your computer, here are some instructions to help you transfer the screenshot from your phone to your computer via AirDrop or your prefered approach. 
 </p>
 
 <img src="{% static 'img/transfer.jpg' %}" alt="" style="width: 900px;">
 
 
 <p>
-Then, locate the screenshot on your computer and upload it in the following area to move on to the next step.
+Please upload your screenshot in the following area to move on to the next step.
 </p>
 <form action="" method="post" enctype="multipart/form-data" class="button2">
   {% csrf_token %}
   <input id="id_screenshot_strava_workout" type="file" name="screenshot_sleep_data">
-  <input type="submit" class="button" value="Upload">
+  <input type="submit" class="button" style="font-size: 20px" value="Upload">
 </form>
 
 {% endblock content %}

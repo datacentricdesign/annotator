@@ -105,10 +105,11 @@ def informed_consent_main(request):
     else:
         form = ConsentForm()
     # Show template according to the type of participants    
+    intro_sentence = ''
     if (STUDY_ID.endswith("NON_DATA_PROVIDER")):
-        intro_sentence += '...'    
+        intro_sentence += 'have a look at the sleep data from someone in your age range;'    
     else:
-        intro_sentence +=  '...'
+        intro_sentence +=  'have a look at the the apple sleep data screenshot you uploaded in the previous study;'
     return render(request, 'informed_consent_main.html', {'form': form, 'prolific_id': prolific_id, 'intro_sentence': intro_sentence}) 
 
 
